@@ -1,5 +1,8 @@
 package com.simrankaurbal.historian_wil_2020;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -7,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,10 +19,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
@@ -29,6 +37,11 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public Button find;
     GoogleMap map;
 
+    // current Location
+    Location currentlocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+
+    private  static final int REQUEST_CODE = 101;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +52,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getBaseContext(), "Button Clicked!" , Toast.LENGTH_SHORT ).show();
+//                Toast.makeText(getBaseContext(), "Button Clicked!" , Toast.LENGTH_SHORT ).show();
+                fetchlastlocation();
             }
         });
 
@@ -52,10 +66,40 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+//        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+//        mapFragment.getMapAsync(this);
+
+        //Current Location
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fetchlastlocation();
 
     }
+
+    private void fetchlastlocation()
+    {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+            return;
+        }
+
+        Task<Location> task = fusedLocationProviderClient.getLastLocation();
+        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+            @Override
+            public void onSuccess(Location location) {
+                if (location  != null)
+                {
+                    currentlocation = location;
+                    Toast.makeText(getApplicationContext(),currentlocation.getLatitude()+""+currentlocation.getLongitude(),Toast.LENGTH_SHORT).show();
+                    SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+                    supportMapFragment.getMapAsync(MainActivity.this);
+                }
+            }
+        });
+
+    }
+
+
 
 
 
@@ -89,10 +133,31 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     @Override
     public void onMapReady(GoogleMap googleMap) {
 
-        map = googleMap;
-        LatLng Toronto = new LatLng(43.660063, -79.382873);
-        map.addMarker(new MarkerOptions().position(Toronto).title("Toronto"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(Toronto));
+        LatLng latLng = new LatLng(currentlocation.getLatitude(),currentlocation.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I Am Here!");
+        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,5));
+        googleMap.addMarker(markerOptions);
 
+//        map = googleMap;
+//        LatLng Toronto = new LatLng(43.660063, -79.382873);
+//        map.addMarker(new MarkerOptions().position(Toronto).title("Toronto"));
+//        map.moveCamera(CameraUpdateFactory.newLatLng(Toronto));
+
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode)
+        {
+            case REQUEST_CODE:
+            if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                fetchlastlocation();
+            }
+            break;
+        }
     }
 }
