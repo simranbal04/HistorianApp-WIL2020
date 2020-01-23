@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,16 +45,20 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     private  static final int REQUEST_CODE = 101;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
 
         find = (Button)findViewById(R.id.find);
-        find.setOnClickListener(new View.OnClickListener() {
+        find.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
-//                Toast.makeText(getBaseContext(), "Button Clicked!" , Toast.LENGTH_SHORT ).show();
-                fetchlastlocation();
+            public void onClick(View v)
+            {
+                Toast.makeText(getBaseContext(), "Button Clicked!" , Toast.LENGTH_SHORT ).show();
+                fetchlocation();
             }
         });
 
@@ -71,28 +76,36 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         //Current Location
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-        fetchlastlocation();
+        fetchlocation();
 
     }
 
-    private void fetchlastlocation()
+    private void fetchlocation()
     {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        Log.d("myTag", "This is my message");
+        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
+            Log.d("myTag", "This is my new message");
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
             return;
         }
 
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
-        task.addOnSuccessListener(new OnSuccessListener<Location>() {
+        task.addOnSuccessListener(new OnSuccessListener<Location>()
+        {
             @Override
-            public void onSuccess(Location location) {
+            public void onSuccess(Location location)
+            {
                 if (location  != null)
                 {
                     currentlocation = location;
+                    Log.d("myTag", "This is a  message");
+
                     Toast.makeText(getApplicationContext(),currentlocation.getLatitude()+""+currentlocation.getLongitude(),Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     supportMapFragment.getMapAsync(MainActivity.this);
+                    Log.d("myTag", "This  message");
+
                 }
             }
         });
@@ -105,17 +118,21 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item))
+        {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem)
+    {
         int id = menuItem.getItemId();
-        if (id == R.id.menupage) {
+        if (id == R.id.mainmenu)
+        {
 
             Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();
 
@@ -125,13 +142,15 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.action_menu,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap)
+    {
 
         LatLng latLng = new LatLng(currentlocation.getLatitude(),currentlocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I Am Here!");
@@ -149,13 +168,14 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
         switch (requestCode)
         {
             case REQUEST_CODE:
             if (grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
             {
-                fetchlastlocation();
+                fetchlocation();
             }
             break;
         }

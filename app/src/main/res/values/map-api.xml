@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="map_key" translatable="false">
-<!--    AIzaSyDNfYBWBuLEI948cIYjojGyZ8jGqxrzRXs-->
-        AIzaSyCpVQGAaebICiukMNoI3NAygySfpyz5SjY
+
+        AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI
+<!--        AIzaSyDdo0Mv_Oywd9Ffw2JhQqkgyKh5F-XttjM-->
 
     </string>
+
 
 </resources>
