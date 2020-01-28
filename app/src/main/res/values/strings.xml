@@ -1,7 +1,9 @@
 <resources>
 <!--    <string name="app_name">Historian-WIL-2020</string>-->
     <string name="app_name">MAIN PAGE</string>
-        <string name="app_name1">PROFILE</string>
+        <string name="app_name1">MAIN MENU</string>
+    <string name="app_name2">PROFILE</string>
+
 
     <string name="open">Open</string>
     <string name="close">Close</string>

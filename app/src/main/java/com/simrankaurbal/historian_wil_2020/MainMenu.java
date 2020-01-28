@@ -34,6 +34,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         visa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(getBaseContext(),"Visa Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
@@ -52,8 +53,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             @Override
             public void onClick(View v)
             {
-                Toast.makeText(getBaseContext(), "Profile Button Clicked!" , Toast.LENGTH_SHORT ).show();
-//                fetchlocation();
+
+                Intent intent = new Intent(MainMenu.this, ProfilePage.class);
+                startActivity(intent);
+//                Toast.makeText(getBaseContext(), "Profile Button Clicked!" , Toast.LENGTH_SHORT ).show();
+
             }
         });
 
