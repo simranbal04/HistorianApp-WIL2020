@@ -1,5 +1,6 @@
 package com.simrankaurbal.historian_wil_2020;
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.location.Location;
@@ -10,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,6 +29,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+
 
 public class MainActivity extends AppCompatActivity  implements NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback
 {
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                 fetchlocation();
             }
         });
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
@@ -133,6 +135,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         int id = menuItem.getItemId();
         if (id == R.id.mainmenu)
         {
+            Intent intent = new Intent(MainActivity.this, MainMenu.class);
+            startActivity(intent);
 
             Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();
 
