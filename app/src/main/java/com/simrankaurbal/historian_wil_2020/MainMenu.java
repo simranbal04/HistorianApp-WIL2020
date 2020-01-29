@@ -45,6 +45,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         hotels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, MuseumsNearby.class);
+                startActivity(intent);
                 Toast.makeText(getBaseContext(),"Hotels Button Clicked",Toast.LENGTH_SHORT).show();
             }
         });
