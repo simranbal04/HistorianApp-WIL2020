@@ -34,6 +34,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         visa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = new Intent(MainMenu.this, PaymentPage.class);
+                startActivity(intent);
 
                 Toast.makeText(getBaseContext(),"Visa Button Clicked", Toast.LENGTH_SHORT).show();
             }

@@ -3,6 +3,8 @@
     <string name="app_name">MAIN PAGE</string>
         <string name="app_name1">MAIN MENU</string>
     <string name="app_name2">PROFILE</string>
+    <string name="app_name3">Payment</string>
+
 
 
     <string name="open">Open</string>
