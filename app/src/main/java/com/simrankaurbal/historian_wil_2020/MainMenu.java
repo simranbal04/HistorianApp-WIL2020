@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -18,7 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public ImageButton profile1;
+    public ImageButton profile;
     public ImageButton visa;
     public  ImageButton hotels;
     private DrawerLayout drawerLayout;
@@ -51,8 +50,9 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        profile1 = (ImageButton) findViewById(R.id.profile1);
-        profile1.setOnClickListener(new View.OnClickListener()
+        profile = (ImageButton) findViewById(R.id.profile1);
+//        profile = (ImageButton) findViewById(R.id.profile);
+        profile.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)

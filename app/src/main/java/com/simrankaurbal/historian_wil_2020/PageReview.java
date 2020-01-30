@@ -34,7 +34,7 @@ public class PageReview  extends AppCompatActivity implements NavigationView.OnN
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.review);
+        setContentView(R.layout.review1);
 
 
 
