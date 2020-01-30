@@ -93,8 +93,8 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             int id = menuItem.getItemId();
             if (id == R.id.mainmenu)
             {
-//                Intent intent = new Intent(MainActivity.this, MainMenu.class);
-//                startActivity(intent);
+                Intent intent = new Intent(MainMenu.this, MainActivity.class);
+                startActivity(intent);
 
                 Toast.makeText(this, "This is Main Menu Page", Toast.LENGTH_SHORT).show();
 
