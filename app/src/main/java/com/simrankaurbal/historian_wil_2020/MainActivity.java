@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
@@ -135,12 +136,18 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         int id = menuItem.getItemId();
         if (id == R.id.mainmenu)
         {
-            Intent intent = new Intent(MainActivity.this, MainMenu.class);
-            startActivity(intent);
 
-            Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();
+            getSupportFragmentManager().beginTransaction().replace(R.id.mainLayout,new MenuPage()).addToBackStack(null).commit();
+//            Intent intent = new Intent(MainActivity.this, MenuPage.class);
+//            startActivity(intent);
+//
+//            Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();
 
         }
+
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+
         return false;
 
     }
