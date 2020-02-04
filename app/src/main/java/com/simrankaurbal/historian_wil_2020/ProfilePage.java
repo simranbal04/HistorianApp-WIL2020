@@ -1,8 +1,12 @@
 package com.simrankaurbal.historian_wil_2020;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
@@ -25,13 +32,18 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class ProfilePage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+{
+
+    //database class
+//    DatabaseHelper databaseHelper;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     public TextView welcometextview;
     public TextView profilepicturetextview;
+//    public  Button profilepicturebutton;
     public ImageView imageViewcamera;
 
     public TextView firstnametextview;
@@ -64,7 +76,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
@@ -72,6 +85,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         welcometextview = (TextView) findViewById(R.id.welcometextview);
         profilepicturetextview = (TextView) findViewById(R.id.profilepicturetextview);
         imageViewcamera = (ImageView) findViewById(R.id.imageViewcamera);
+//        profilepicturebutton = (Button) findViewById(R.id.profilepicturebutton);
 
         firstnametextview = (TextView) findViewById(R.id.firstnametextview);
         editTextfirstname = (EditText) findViewById(R.id.editTextfirstname);
@@ -159,12 +173,35 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         });
 
 
+        //request for camera permission
+        if (ContextCompat.checkSelfPermission(ProfilePage.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(ProfilePage.this,new String[] {
+                    Manifest.permission.CAMERA
+            },
+                    100);
+        }
 
+        imageViewcamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //open camera
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent,100);
+            }
+        });
 
+    }
 
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (requestCode == 100)
+        {
+            //get image capture
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            //set captured image to imageView
+            imageViewcamera.setImageBitmap(captureImage);
+        }
     }
 
     @Override
