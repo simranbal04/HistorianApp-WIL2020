@@ -36,7 +36,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 {
 
     //database class
-//    DatabaseHelper databaseHelper;
+    Database mydatabase;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -81,6 +81,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+
+        mydatabase = new Database(this);
 
         welcometextview = (TextView) findViewById(R.id.welcometextview);
         profilepicturetextview = (TextView) findViewById(R.id.profilepicturetextview);
@@ -191,7 +193,36 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             }
         });
 
+
+        AddDetails();
     }
+
+
+
+    public  void AddDetails(){
+        Savebutton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        boolean isInserted =   mydatabase.insertData(editTextfirstname.getText().toString(),editTextlastname.getText().toString(),editTextcontact.getText().toString(),editTextemailid.getText().toString(),dobedittext.getText().toString());
+
+                        if(isInserted = true)
+                            Toast.makeText(ProfilePage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(ProfilePage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+        );
+    }
+
+
+
+
+
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
