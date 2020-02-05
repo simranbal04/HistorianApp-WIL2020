@@ -50,6 +50,8 @@
         <activity android:name=".PageReview"
             android:label="Museums Nearby"/>
 
+        <activity android:name=".Demo"></activity>
+
 
 
 

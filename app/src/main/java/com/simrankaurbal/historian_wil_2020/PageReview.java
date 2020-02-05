@@ -47,7 +47,7 @@ public class PageReview  extends AppCompatActivity implements NavigationView.OnN
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        scrollview = (ScrollView) findViewById(R.id.scrollview);
+        scrollview = (ScrollView) findViewById(R.id.data);
         location = (TextView) findViewById(R.id.location);
         price = (TextView) findViewById(R.id.price);
         imageView5 = (ImageView) findViewById(R.id.imageView5);

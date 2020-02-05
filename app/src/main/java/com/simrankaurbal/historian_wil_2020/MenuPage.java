@@ -72,10 +72,12 @@ public class MenuPage extends Fragment {
             public void onClick(View v)
             {
 
-                 new DownloadTask();
+                fetchData process = new fetchData();
+                process.execute();
+//                 new DownloadTask();
 
-//                Intent in = new Intent(getActivity(), MuseumsNearby.class);
-//                startActivity(in);
+                Intent in = new Intent(getActivity(), MuseumsNearby.class);
+                startActivity(in);
             }
         });
 
@@ -84,88 +86,88 @@ public class MenuPage extends Fragment {
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        DownloadTask task = new DownloadTask();
-      task.execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.774034,-79.335683&radius=1500&type=timhortons&keyword=cafe&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI");
-        //task.execute("https://samples.openweathermap.org/data/2.5/weather?q=London&appid=b6907d289e10d714a6e88b30761fae22");
-
-
-    }
-
-    public class DownloadTask extends AsyncTask<String, Void, String>
-    {
-
-        @Override
-        protected String doInBackground(String... urls) {
-
-            String result = "";
-            URL url;
-            HttpURLConnection urlConnection = null;
-
-            try {
-                url = new URL(urls[0]);
-
-                urlConnection = (HttpURLConnection) url.openConnection();
-
-                InputStream in = urlConnection.getInputStream();
-                InputStreamReader reader = new InputStreamReader(in);
-                int data = reader.read();
-                while (data != -1)
-                {
-                    char current = (char) data;
-//                    result += current;
-                    result += current;
-                    data = reader.read();
-                }
-
-                return result;
-
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            super.onPostExecute(result);
-
-            try {
-
-                JSONObject jsonObject = new JSONObject(result);
-                String museum =  jsonObject.getString("");
-
-                Log.i("museum Content", museum);
-
-//                JSONArray jsonArray = new JSONArray(weatherinfo);
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        DownloadTask task = new DownloadTask();
+//      task.execute("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.774034,-79.335683&radius=1500&type=timhortons&keyword=cafe&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI");
+//        //task.execute("https://samples.openweathermap.org/data/2.5/weather?q=London&appid=b6907d289e10d714a6e88b30761fae22");
 //
-//                for (int i = 0; i < jsonArray.length(); i++)
+//
+//    }
+//
+//    public class DownloadTask extends AsyncTask<String, Void, String>
+//    {
+//
+//        @Override
+//        protected String doInBackground(String... urls) {
+//
+//            String result = "";
+//            URL url;
+//            HttpURLConnection urlConnection = null;
+//
+//            try {
+//                url = new URL(urls[0]);
+//
+//                urlConnection = (HttpURLConnection) url.openConnection();
+//
+//                InputStream in = urlConnection.getInputStream();
+//                InputStreamReader reader = new InputStreamReader(in);
+//                int data = reader.read();
+//                while (data != -1)
 //                {
-//                    JSONObject jsonpart = jsonArray.getJSONObject(i);
-//
-////                    Log.i("main",jsonpart.getString("main"));
-////                    Log.i("description",jsonpart.getString("description"));
-////                    Log.i("icon",jsonpart.getString("icon"));
+//                    char current = (char) data;
+////                    result += current;
+//                    result += current;
+//                    data = reader.read();
 //                }
-
-            }
-            catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-
-
-
-        }
-    }
-
+//
+//                return result;
+//
+//
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            super.onPostExecute(result);
+//
+//            try {
+//
+//                JSONObject jsonObject = new JSONObject(result);
+//                String museum =  jsonObject.getString("");
+//
+//                Log.i("museum Content", museum);
+//
+////                JSONArray jsonArray = new JSONArray(weatherinfo);
+////
+////                for (int i = 0; i < jsonArray.length(); i++)
+////                {
+////                    JSONObject jsonpart = jsonArray.getJSONObject(i);
+////
+//////                    Log.i("main",jsonpart.getString("main"));
+//////                    Log.i("description",jsonpart.getString("description"));
+//////                    Log.i("icon",jsonpart.getString("icon"));
+////                }
+//
+//            }
+//            catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//
+//
+//
+//
+//        }
+//    }
+//
 
 
 }

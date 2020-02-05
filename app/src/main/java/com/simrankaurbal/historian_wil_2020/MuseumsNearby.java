@@ -25,10 +25,10 @@ public class MuseumsNearby extends AppCompatActivity implements NavigationView.O
     private ScrollView scrollView;
 
     public TextView welcometextview;
-    public ImageView imageView5;
+    public static ImageView imageView5;
     public ImageView imageView7;
-    public  TextView location;
-    public  TextView price;
+    public static TextView location;
+    public static TextView price;
     public TextView price2;
     public TextView price3;
     public TextView location1;
