@@ -42,9 +42,9 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
 
         holder.headingtextview.setText(listitem.getHead());
         holder.description.setText(listitem.getDesp());
-        holder.moredata.setText(listitem.getMore());
+//        holder.moredata.setText(listitem.getMore());
 
-//        Picasso.with(context).load(listitem.getImageurl()).into(holder.image);
+        Picasso.with(context).load(listitem.getImageurl()).into(holder.image);
 
 
 
@@ -60,16 +60,16 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
 
         public TextView headingtextview;
         public TextView description;
-        public  TextView moredata;
-//        public ImageView image;
+//        public  TextView moredata;
+        public ImageView image;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             headingtextview = (TextView) itemView.findViewById(R.id.headingtextview);
             description = (TextView) itemView.findViewById(R.id.description);
-            moredata = (TextView) itemView.findViewById(R.id.moredata);
-//            image = (ImageView) itemView.findViewById(R.id.image);
+//            moredata = (TextView) itemView.findViewById(R.id.moredata);
+            image = (ImageView) itemView.findViewById(R.id.image);
 
 
 

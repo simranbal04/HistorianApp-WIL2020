@@ -5,6 +5,7 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.Menu;
@@ -28,6 +29,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.ByteArrayOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -36,7 +38,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 {
 
     //database class
-    Database mydatabase;
+    DataBaseHelper mydatabase;
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
@@ -82,7 +84,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
 
-        mydatabase = new Database(this);
+        mydatabase = new DataBaseHelper(this);
 
         welcometextview = (TextView) findViewById(R.id.welcometextview);
         profilepicturetextview = (TextView) findViewById(R.id.profilepicturetextview);
@@ -184,14 +186,31 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     100);
         }
 
-        imageViewcamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //open camera
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent,100);
-            }
-        });
+        imageViewcamera.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        byte[] UserImage = imageViewToByte(imageViewcamera);
+                        // to open camera
+
+                        AddProfile(UserImage);
+                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                        startActivityForResult(intent, 100);
+                    }
+
+                    private void AddProfile(byte[] UserImage) {
+                        mydatabase.insertImage(UserImage);
+                    }
+
+                    private byte[] imageViewToByte(ImageView imageViewcamera)
+                    {
+                        Bitmap bitmap = ((BitmapDrawable) imageViewcamera.getDrawable()).getBitmap();
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
+                        byte[] byteArray = stream.toByteArray();
+                        return byteArray;
+                    }
+                });
 
 
         AddDetails();

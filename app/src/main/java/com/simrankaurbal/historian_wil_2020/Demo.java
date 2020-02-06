@@ -74,7 +74,7 @@ public class Demo extends AppCompatActivity {
                         JSONObject jsonpint = jsonArray.getJSONObject(i);
                         Listitem item = new Listitem(jsonpint.getString("name"),
                                 jsonpint.getString("rating"),
-                                jsonpint.getString("scope"));
+                                jsonpint.getString("icon"));
                         listitems.add(item);
 
                     }

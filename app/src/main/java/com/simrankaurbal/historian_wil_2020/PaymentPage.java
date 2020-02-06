@@ -1,10 +1,13 @@
 package com.simrankaurbal.historian_wil_2020;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -17,10 +20,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 public class PaymentPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+    DataBaseHelper mydatabase1;
+
 
 
     public TextView welcometextview;
@@ -38,6 +48,18 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
     public ImageButton calimageView;
 
     public Button Savebutton;
+
+    //Calendar
+
+    Calendar myCalendar;
+    Calendar startDate;
+    Calendar endDate;
+    Calendar startDateC;
+
+    //datecheck type
+    int start_or_end;
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
 
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -70,9 +92,87 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         Savebutton =  (Button) findViewById(R.id.Savebutton);
 
 
+        myCalendar = (Calendar) Calendar.getInstance();
+        startDate = (Calendar) Calendar.getInstance();
+
+
+        calimageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
+                {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
+                    {
+                        myCalendar.set(Calendar.YEAR, year);
+                        myCalendar.set(Calendar.MONTH, month);
+                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                        if (start_or_end == 1)
+                        {
+                            startDate.set(Calendar.YEAR, year);
+                            startDate.set(Calendar.MONTH, month);
+                            startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                            editTextexpirydate.setText(sdf.format(myCalendar.getTime()));
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                };
+
+
+
+                editTextexpirydate.setOnFocusChangeListener(new View.OnFocusChangeListener()
+                {
+                    @Override
+                    public void onFocusChange(View v, boolean hasFocus)
+                    {
+                        if (hasFocus)
+                        {
+                            start_or_end = 1;
+                            DatePickerDialog dialog = new DatePickerDialog(PaymentPage.this ,date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
+                            dialog.show();
+
+                        } else
+                        {
+
+                        }
+                    }
+                });
+
+
+            }
+        });
+
+
+        AddPaymentDetail();
 
 
     }
+
+    public boolean AddPaymentDetail(){
+
+        Savebutton.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        boolean isAdded = mydatabase1.insertDetail(editTextName.getText().toString(), editTextcardnumber.getText().toString(), editTextcvv.getText().toString(), editTextexpirydate.getText().toString());
+                        if(isAdded = true)
+                            Toast.makeText(PaymentPage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                        else
+                            Toast.makeText(PaymentPage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+        );
+        return true;
+
+    }
+
 
 
     @Override

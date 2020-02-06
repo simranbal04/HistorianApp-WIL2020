@@ -72,8 +72,8 @@ public class MenuPage extends Fragment {
             public void onClick(View v)
             {
 
-                fetchData process = new fetchData();
-                process.execute();
+//                fetchData process = new fetchData();
+//                process.execute();
 //                 new DownloadTask();
 
                 Intent in = new Intent(getActivity(), Demo.class);

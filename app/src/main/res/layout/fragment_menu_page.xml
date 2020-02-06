@@ -15,6 +15,7 @@
         android:layout_marginStart="51dp"
         android:layout_marginTop="106dp"
         android:layout_marginBottom="54dp"
+        android:background="#00C47E7E"
         app:layout_constraintBottom_toTopOf="@+id/hotels"
         app:layout_constraintEnd_toStartOf="@+id/visa"
         app:layout_constraintHorizontal_bias="0.132"

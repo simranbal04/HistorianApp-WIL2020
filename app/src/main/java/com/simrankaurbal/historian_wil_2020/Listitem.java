@@ -5,14 +5,15 @@ public class Listitem {
 
     private String head;
     private String desp;
-//    private String imageurl;
-    private String more;
+    private String imageurl;
+//    private String more;
 
-    public Listitem(String head, String desp,  String more) {
+
+    public Listitem(String head, String desp,  String imageurl) {
         this.head = head;
         this.desp = desp;
-//        this.imageurl = imageurl;
-        this.more = more;
+        this.imageurl = imageurl;
+//        this.more = more;
     }
 
     public Listitem(String s, String s1) {
@@ -26,11 +27,11 @@ public class Listitem {
         return desp;
     }
 
-//    public String getImageurl() {
-//        return imageurl;
-//    }
-
-    public String getMore() {
-        return more;
+    public String getImageurl() {
+        return imageurl;
     }
+
+//    public String getMore() {
+//        return more;
+//    }
 }

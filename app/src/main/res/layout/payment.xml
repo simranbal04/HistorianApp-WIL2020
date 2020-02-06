@@ -33,15 +33,15 @@
             android:layout_width="198dp"
             android:layout_height="51dp"
             android:layout_marginStart="104dp"
-            android:layout_marginTop="51dp"
+            android:layout_marginTop="70dp"
             android:layout_marginEnd="109dp"
-            android:layout_marginBottom="104dp"
+            android:layout_marginBottom="64dp"
             android:text="SAVE"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/calimageView" />
+            app:layout_constraintTop_toBottomOf="@+id/editTextexpirydate" />
 
         <TextView
             android:id="@+id/nametextview"
@@ -144,14 +144,15 @@
 
         <EditText
             android:id="@+id/editTextexpirydate"
-            android:layout_width="159dp"
-            android:layout_height="34dp"
+            android:layout_width="163dp"
+            android:layout_height="51dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="15dp"
             android:ems="10"
             android:inputType="phone"
             app:layout_constraintEnd_toStartOf="@+id/calimageView"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/expirydatetextview" />
 
@@ -159,8 +160,10 @@
             android:id="@+id/calimageView"
             android:layout_width="43dp"
             android:layout_height="38dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="178dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="172dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintBottom_toTopOf="@+id/Savebutton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/expirydatetextview"
             app:srcCompat="@android:drawable/ic_menu_my_calendar" />
