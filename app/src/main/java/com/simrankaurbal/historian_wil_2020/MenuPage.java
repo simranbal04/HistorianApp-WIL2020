@@ -76,7 +76,7 @@ public class MenuPage extends Fragment {
                 process.execute();
 //                 new DownloadTask();
 
-                Intent in = new Intent(getActivity(), MuseumsNearby.class);
+                Intent in = new Intent(getActivity(), Demo.class);
                 startActivity(in);
             }
         });
