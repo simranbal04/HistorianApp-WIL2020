@@ -1,6 +1,7 @@
 package com.simrankaurbal.historian_wil_2020;
 
 import android.app.ProgressDialog;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,9 +29,12 @@ import java.util.List;
 
 public class Demo extends AppCompatActivity {
 
-    private static final String URL_DATA ="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=43.774034,-79.335683&radius=2000&type=museum&keyword=museum&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
+//    private static final String URL_DATA ="https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=2000&type=museum&keyword=museum&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
+    private static final String URL_DATA = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=museum+in+Scarborough&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+
+//    Location location;
 
 
     private List<Listitem> listitems;
@@ -74,7 +78,7 @@ public class Demo extends AppCompatActivity {
                         JSONObject jsonpint = jsonArray.getJSONObject(i);
                         Listitem item = new Listitem(jsonpint.getString("name"),
                                 jsonpint.getString("rating"),
-                                jsonpint.getString("icon"));
+                                jsonpint.getString("icon"),jsonpint.getString("id"));
                         listitems.add(item);
 
                     }

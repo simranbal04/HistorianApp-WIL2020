@@ -3,6 +3,7 @@ package com.simrankaurbal.historian_wil_2020;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +48,7 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
     public EditText editTextexpirydate;
     public ImageButton calimageView;
 
-    public Button Savebutton;
+    public Button Savebuttonpayment;
 
     //Calendar
 
@@ -89,11 +90,13 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         calimageView = (ImageButton) findViewById(R.id.calimageView);
 
 
-        Savebutton =  (Button) findViewById(R.id.Savebutton);
+        Savebuttonpayment =  (Button) findViewById(R.id.Savebuttonpayment);
 
 
         myCalendar = (Calendar) Calendar.getInstance();
         startDate = (Calendar) Calendar.getInstance();
+
+        mydatabase1=new DataBaseHelper(this);
 
 
         calimageView.setOnClickListener(new View.OnClickListener() {
@@ -152,27 +155,26 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         AddPaymentDetail();
 
 
-    }
-
-    public boolean AddPaymentDetail(){
-
-        Savebutton.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        boolean isAdded = mydatabase1.insertDetail(editTextName.getText().toString(), editTextcardnumber.getText().toString(), editTextcvv.getText().toString(), editTextexpirydate.getText().toString());
-                        if(isAdded = true)
-                            Toast.makeText(PaymentPage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(PaymentPage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-        );
-        return true;
 
     }
 
+    public void AddPaymentDetail()
+    {
+        Savebuttonpayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isAdded = mydatabase1.insertDetail(editTextName.getText().toString(),editTextcardnumber.getText().toString(),editTextcvv.getText().toString(),editTextexpirydate.getText().toString());
+
+                Log.d("myTag", "This is my payment message");
+
+                if(isAdded = true)
+                    Toast.makeText(PaymentPage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(PaymentPage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
 
 
     @Override

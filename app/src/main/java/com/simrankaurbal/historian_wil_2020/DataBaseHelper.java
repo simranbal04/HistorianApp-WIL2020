@@ -63,6 +63,8 @@ class DataBaseHelper extends SQLiteOpenHelper{
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues1 = new ContentValues();
 
+//            contentValues1.get("column1");
+
             contentValues1.put(column1, fname);
             contentValues1.put(column2, Lname);
             contentValues1.put(column3, contact);
@@ -87,6 +89,7 @@ class DataBaseHelper extends SQLiteOpenHelper{
 
             //Insert Data into Database
             db.insert(TableName, null, contentValues);
+//            return false;
             return false;
         }
 

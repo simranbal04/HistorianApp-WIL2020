@@ -1,9 +1,11 @@
 package com.simrankaurbal.historian_wil_2020;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,18 +20,21 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
 
    private List<Listitem> listitems;
    private Context context;
+   LayoutInflater inflater;
 
     public Myadapter(List<Listitem> listitems, Context context) {
         this.listitems = listitems;
         this.context = context;
+        this.inflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
+//        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item,parent,false);
 
+        View v = inflater.inflate(R.layout.list_item,parent,false);
         return new ViewHolder(v);
 
 //        return null;
@@ -43,8 +48,17 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
         holder.headingtextview.setText(listitem.getHead());
         holder.description.setText(listitem.getDesp());
 //        holder.moredata.setText(listitem.getMore());
+        holder.reviewbutton.setText(listitem.getReview());
 
         Picasso.with(context).load(listitem.getImageurl()).into(holder.image);
+//        holder.reviewbutton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+////                Intent intent = new Intent(this, PageReview.class);
+////                startActivity(intent);
+//            }
+//        });
+
 
 
 
@@ -56,12 +70,15 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
         return listitems.size();
     }
 
+
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         public TextView headingtextview;
         public TextView description;
 //        public  TextView moredata;
         public ImageView image;
+        public Button reviewbutton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -70,6 +87,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
             description = (TextView) itemView.findViewById(R.id.description);
 //            moredata = (TextView) itemView.findViewById(R.id.moredata);
             image = (ImageView) itemView.findViewById(R.id.image);
+            reviewbutton = (Button) itemView.findViewById(R.id.reviewbutton);
 
 
 

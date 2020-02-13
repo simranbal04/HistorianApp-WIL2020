@@ -163,6 +163,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public void onMapReady(GoogleMap googleMap)
     {
 
+//        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng latLng = new LatLng(currentlocation.getLatitude(),currentlocation.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions().position(latLng).title("I Am Here!");
         googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));

@@ -6,13 +6,19 @@ public class Listitem {
     private String head;
     private String desp;
     private String imageurl;
+    private String review;
 //    private String more;
 
 
-    public Listitem(String head, String desp,  String imageurl) {
+    public Listitem(String review) {
+        this.review = review;
+    }
+
+    public Listitem(String head, String desp, String imageurl, String review) {
         this.head = head;
         this.desp = desp;
         this.imageurl = imageurl;
+
 //        this.more = more;
     }
 
@@ -31,7 +37,14 @@ public class Listitem {
         return imageurl;
     }
 
+    public String getReview() {
+        return review;
+    }
+
+
 //    public String getMore() {
 //        return more;
 //    }
+
 }
+

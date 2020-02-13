@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,7 +107,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         dobtextview = (TextView) findViewById(R.id.dobtextview);
         dobedittext = (EditText) findViewById(R.id.dobedittext);
         imageViewcalendar = (ImageButton) findViewById(R.id.imageViewcalendar);
-        Savebutton = (Button) findViewById(R.id.Savebutton);
+        Savebutton = (Button) findViewById(R.id.Savebuttonpayment);
 
 
 
@@ -225,6 +226,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     public void onClick(View v) {
                         boolean isInserted =   mydatabase.insertData(editTextfirstname.getText().toString(),editTextlastname.getText().toString(),editTextcontact.getText().toString(),editTextemailid.getText().toString(),dobedittext.getText().toString());
 
+                        Log.d("myTag", "This is my profile message");
                         if(isInserted = true)
                             Toast.makeText(ProfilePage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
                         else
