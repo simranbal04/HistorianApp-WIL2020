@@ -1,15 +1,22 @@
 package com.simrankaurbal.historian_wil_2020;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +26,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -27,15 +39,27 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Demo extends AppCompatActivity {
 
-//    private static final String URL_DATA ="https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=2000&type=museum&keyword=museum&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
-    private static final String URL_DATA = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=museum+in+Scarborough&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
+    public double longitude ;
+    public double latitude ;
+
+
+//    public final String strGoogleApi = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+longitude+","+latitude+"&radius=3500&type=museums&keyword=museums&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
+
+    double letValue ;
+    double longValue;
+
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
 
-//    Location location;
+    // current Location
+    Location currentlocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private  static final int REQUEST_CODE = 101;
 
+   // Location location;
 
     private List<Listitem> listitems;
 
@@ -55,25 +79,43 @@ public class Demo extends AppCompatActivity {
         listitems = new ArrayList<>();
 
         loadRecyclerViewData();
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        @SuppressLint("MissingPermission")
+        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        Log.d("TAG:", "onResponse: "+longitude);
+
+        latitude = location.getLatitude();
+        Log.d("TAG:", "onResponse: "+latitude);
 
     }
 
 
     private void loadRecyclerViewData(){
+
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading Data...");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, URL_DATA, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, strGoogleApi, new Response.Listener<String>()
+        {
+
             @Override
             public void onResponse(String response) {
-
                 progressDialog.dismiss();
 
                 try {
+                    Log.d("TAG:", "onResponse: "+strGoogleApi);
+
+
+                    Log.d("myTag", "This is my json check message");
+                    Toast.makeText(getApplicationContext(),longitude+"  "+latitude,Toast.LENGTH_SHORT).show();
+
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
+
                     for (int i=0; i<jsonArray.length(); i++){
                         JSONObject jsonpint = jsonArray.getJSONObject(i);
                         Listitem item = new Listitem(jsonpint.getString("name"),
@@ -102,32 +144,13 @@ public class Demo extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+    private final String strGoogleApi = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+longitude+","+latitude+"&radius=3500&type=museums&keyword=museums&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
+
 }
 
 
-//        for (int i = 0; i< 10;i ++){
-//            Listitem listitem = new Listitem("heading" + (i+1),"Hello Welcome to the Developer mode");
-//
-//            listitems.add(listitem);
-//        }
-
-//        adapter = new Myadapter(listitems,this);
-//
-//        recyclerView.setAdapter(adapter);
 
 
 
-
-        //click = (Button) findViewById(R.id.click);
-//        data = (TextView) findViewById(R.id.data);
-
-//        click.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                fetchData process = new fetchData();
-//                process.execute();
-//
-//            }
-//        });
 
