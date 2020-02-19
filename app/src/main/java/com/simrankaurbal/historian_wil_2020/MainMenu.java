@@ -1,7 +1,12 @@
 package com.simrankaurbal.historian_wil_2020;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +18,8 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -22,6 +29,17 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
     public  ImageButton hotels;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
+
+
+    Demo demo;
+    double letValueMain ;
+    double longValueMain;
+
+    Location currentlocation;
+    FusedLocationProviderClient fusedLocationProviderClient;
+    private  static final int REQUEST_CODE = 101;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +62,22 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         hotels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenu.this, MuseumsNearby.class);
+
+
+                fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainMenu.this);
+
+                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+                @SuppressLint("MissingPermission")
+                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                longValueMain = location.getLongitude();
+                Log.d("TAG:", "onResponse1: "+longValueMain);
+
+                letValueMain = location.getLatitude();
+                Log.d("TAG:", "onResponse1: "+letValueMain);
+
+                Intent intent = new Intent(MainMenu.this, Demo.class);
+                intent.putExtra("latitude", letValueMain);
+                intent.putExtra("longitude", longValueMain);
                 startActivity(intent);
                 Toast.makeText(getBaseContext(),"Hotels Button Clicked",Toast.LENGTH_SHORT).show();
             }

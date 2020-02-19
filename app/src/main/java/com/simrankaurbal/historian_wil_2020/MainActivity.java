@@ -137,9 +137,9 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         if (id == R.id.mainmenu)
         {
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.mainLayout,new MenuPage()).addToBackStack(null).commit();
-//            Intent intent = new Intent(MainActivity.this, MenuPage.class);
-//            startActivity(intent);
+//            getSupportFragmentManager().beginTransaction().replace(R.id.mainLayout,new MenuPage()).addToBackStack(null).commit();
+            Intent intent = new Intent(MainActivity.this, MainMenu.class);
+            startActivity(intent);
 //
 //            Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();
 

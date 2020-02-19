@@ -1,12 +1,17 @@
 package com.simrankaurbal.historian_wil_2020;
 
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,6 +21,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +41,21 @@ import java.net.URL;
  * A simple {@link Fragment} subclass.
  */
 public class MenuPage extends Fragment {
+
+
+//    Demo demo;
+//    double letValue ;
+//    double longValue;
+//
+//    Location currentlocation;
+
+//                fetchData process = new fetchData();
+//                process.execute();
+//                 new DownloadTask();
+
+
+//    FusedLocationProviderClient fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+//    private  static final int REQUEST_CODE = 101;
 
 
     public MenuPage() {
@@ -72,12 +95,22 @@ public class MenuPage extends Fragment {
             public void onClick(View v)
             {
 
-//                fetchData process = new fetchData();
-//                process.execute();
-//                 new DownloadTask();
+
+//                LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+//                @SuppressLint("MissingPermission")
+//                Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//                longValue = location.getLongitude();
+//                Log.d("TAG:", "onResponse: "+longValue);
+//
+//                letValue = location.getLatitude();
+//                Log.d("TAG:", "onResponse: "+letValue);
+
+
+
 
                 Intent in = new Intent(getActivity(), Demo.class);
                 startActivity(in);
+//                demo.loadRecyclerViewData();
             }
         });
 
@@ -85,6 +118,11 @@ public class MenuPage extends Fragment {
 
 
     }
+
+//    @Override
+//    public void onPointerCaptureChanged(boolean hasCapture) {
+//
+//    }
 
 //    @Override
 //    public void onCreate(@Nullable Bundle savedInstanceState) {
