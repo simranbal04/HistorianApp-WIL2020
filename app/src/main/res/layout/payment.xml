@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainMenu"
-    android:text="PROFILE">
+    android:text="PROFILE"
+    android:background="#fff1cf">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

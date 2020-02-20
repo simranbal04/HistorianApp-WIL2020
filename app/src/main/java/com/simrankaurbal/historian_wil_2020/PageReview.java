@@ -30,11 +30,12 @@ public class PageReview  extends AppCompatActivity implements NavigationView.OnN
     public Button button2;
     public TextView detailtextview;
 
+    public TextView headingtextview;
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.review1);
+        setContentView(R.layout.recycle);
 
 
 
@@ -53,7 +54,14 @@ public class PageReview  extends AppCompatActivity implements NavigationView.OnN
         imageView5 = (ImageView) findViewById(R.id.imageView5);
         button2= (Button) findViewById(R.id.button2);
         detailtextview = (TextView) findViewById(R.id.detailtextview);
+        headingtextview = (TextView) findViewById(R.id.headingtextview);
 
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("heading");
+        headingtextview.setText(str);
+
+
+//        String headingtextview  = getIntent().getStringExtra("heading");
 
     }
 

@@ -7,17 +7,18 @@ public class Listitem {
     private String desp;
     private String imageurl;
     private String review;
+
+
 //    private String more;
-
-
-    public Listitem(String review) {
-        this.review = review;
-    }
+//    public Listitem(String review) {
+//        this.review = review;
+//    }
 
     public Listitem(String head, String desp, String imageurl, String review) {
         this.head = head;
         this.desp = desp;
         this.imageurl = imageurl;
+        this.review = review;
 
 //        this.more = more;
     }

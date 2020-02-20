@@ -83,7 +83,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
             }
         });
 
-        profile = (ImageButton) findViewById(R.id.profile1);
+        profile = (ImageButton) findViewById(R.id.profile);
 //        profile = (ImageButton) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener()
         {

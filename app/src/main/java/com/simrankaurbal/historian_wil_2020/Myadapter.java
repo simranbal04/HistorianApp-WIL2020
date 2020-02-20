@@ -2,6 +2,7 @@ package com.simrankaurbal.historian_wil_2020;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
         Listitem listitem = listitems.get(position);
 
@@ -49,19 +50,19 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
         holder.description.setText(listitem.getDesp());
 //        holder.moredata.setText(listitem.getMore());
         holder.reviewbutton.setText(listitem.getReview());
+        holder.reviewbutton.setText("Review");
 
-        Picasso.with(context).load(listitem.getImageurl()).into(holder.image);
 //        holder.reviewbutton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-////                Intent intent = new Intent(this, PageReview.class);
-////                startActivity(intent);
+//                Intent intent = new Intent(context, PageReview.class);
+//                intent.putExtra("heading", headingtextview);
+//
+//                context.startActivity(intent);
 //            }
 //        });
 
-
-
-
+        Picasso.with(context).load(listitem.getImageurl()).into(holder.image);
 
     }
 
@@ -88,6 +89,16 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder> {
 //            moredata = (TextView) itemView.findViewById(R.id.moredata);
             image = (ImageView) itemView.findViewById(R.id.image);
             reviewbutton = (Button) itemView.findViewById(R.id.reviewbutton);
+            reviewbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,Demo.class);
+                    intent.putExtra("heading", String.valueOf(headingtextview));
+
+                    context.startActivity(intent);
+
+                }
+            });
 
 
 

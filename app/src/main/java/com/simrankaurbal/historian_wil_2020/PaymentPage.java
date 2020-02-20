@@ -19,6 +19,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
@@ -50,6 +53,8 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
 
     public Button Savebuttonpayment;
 
+    AwesomeValidation awesomeValidation;
+
     //Calendar
 
     Calendar myCalendar;
@@ -63,6 +68,8 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
 
     protected void onCreate(Bundle savedInstanceState) {
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment);
@@ -154,8 +161,19 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
 
         AddPaymentDetail();
 
+        CheckValidData();
 
 
+
+    }
+
+    private void CheckValidData()
+    {
+
+        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextName, "[a-zA-Z\\s]+",R.string.NameOnCard_Error);
+        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextcardnumber,"[^4[0-9]{12}(?:[0-9]{3})?$]",R.string.CardNumber_Error);
+        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextcvv,"([0-9]|[0-9]|[0-9])",R.string.CVV_Error);
+        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextexpirydate, RegexTemplate.NOT_EMPTY,R.string.ExpiryDate_Error);
     }
 
     public void AddPaymentDetail()
@@ -163,6 +181,8 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         Savebuttonpayment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (awesomeValidation.validate())
+                {
                 boolean isAdded = mydatabase1.insertDetail(editTextName.getText().toString(),editTextcardnumber.getText().toString(),editTextcvv.getText().toString(),editTextexpirydate.getText().toString());
 
                 Log.d("myTag", "This is my payment message");
@@ -172,7 +192,7 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
                 else
                     Toast.makeText(PaymentPage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
 
-            }
+            }}
         });
     }
 

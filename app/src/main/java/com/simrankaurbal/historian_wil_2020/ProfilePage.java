@@ -9,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
+import com.basgeekball.awesomevalidation.utility.RegexTemplate;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.ByteArrayOutputStream;
@@ -66,6 +70,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     public ImageButton imageViewcalendar;
     public Button Savebutton;
 
+    boolean isInserted;
+
+    AwesomeValidation awesomeValidation;
 
     //Calendar
 
@@ -81,6 +88,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
     protected void onCreate(Bundle savedInstanceState)
     {
+
+        awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
@@ -215,23 +224,45 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
 
         AddDetails();
+        Validations();
     }
 
+    private void Validations() {
+
+        awesomeValidation.addValidation(ProfilePage.this,R.id.imageViewcamera, RegexTemplate.NOT_EMPTY,R.string.Picture_Error);
+        awesomeValidation.addValidation(ProfilePage.this,R.id.editTextfirstname,"[a-zA-Z\\s]+",R.string.firstName_Error);
+        awesomeValidation.addValidation(ProfilePage.this,R.id.editTextlastname,"[a-zA-Z\\s]+",R.string.LastName_Error);
+        awesomeValidation.addValidation(ProfilePage.this,R.id.editTextemailid, Patterns.EMAIL_ADDRESS,R.string.Email_Error);
+        awesomeValidation.addValidation(ProfilePage.this,R.id.editTextcontact, Patterns.PHONE,R.string.Contact_Error);
+        awesomeValidation.addValidation(ProfilePage.this,R.id.dobedittext,RegexTemplate.NOT_EMPTY,R.string.DOB_Error);
+
+    }
 
 
     public  void AddDetails(){
         Savebutton.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
-                    public void onClick(View v) {
-                        boolean isInserted =   mydatabase.insertData(editTextfirstname.getText().toString(),editTextlastname.getText().toString(),editTextcontact.getText().toString(),editTextemailid.getText().toString(),dobedittext.getText().toString());
+                    public void onClick(View v)
+                    {
+                        if (awesomeValidation.validate()) {
+                            mydatabase.insertData(editTextfirstname.getText().toString(), editTextlastname.getText().toString(), editTextcontact.getText().toString(), editTextemailid.getText().toString(), dobedittext.getText().toString());
 
-                        Log.d("myTag", "This is my profile message");
-                        if(isInserted = true)
-                            Toast.makeText(ProfilePage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-                        else
-                            Toast.makeText(ProfilePage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+                            if (isInserted = true)
+                                Toast.makeText(ProfilePage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+                            else
+                                Toast.makeText(ProfilePage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+
+                        }
                     }
+//                        boolean isInserted =   mydatabase.insertData(editTextfirstname.getText().toString(),editTextlastname.getText().toString(),editTextcontact.getText().toString(),editTextemailid.getText().toString(),dobedittext.getText().toString());
+//
+//                        Log.d("myTag", "This is my profile message");
+//                        if(isInserted = true)
+//                            Toast.makeText(ProfilePage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
+//                        else
+//                            Toast.makeText(ProfilePage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+//                    }
 
                 }
         );

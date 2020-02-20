@@ -72,6 +72,7 @@ public class Demo extends AppCompatActivity {
 
 
         listitems = new ArrayList<>();
+
        final Double letValue = getIntent().getDoubleExtra("latitude", 12.12);
        final  Double longValue = getIntent().getDoubleExtra("longitude", 13.13);
 
