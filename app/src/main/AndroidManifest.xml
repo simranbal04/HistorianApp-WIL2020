@@ -22,7 +22,7 @@
             android:value="@string/map_key"/>
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,6 +54,8 @@
             android:label="Museums Nearby"></activity>
         <activity android:name=".Listitem"/>
         <activity android:name=".Myadapter"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".Pagereviewlistitem"/>
 
 
 

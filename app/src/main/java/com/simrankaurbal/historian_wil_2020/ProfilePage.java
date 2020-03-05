@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -196,22 +197,60 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                     100);
         }
 
-        imageViewcamera.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        byte[] UserImage = imageViewToByte(imageViewcamera);
-                        // to open camera
 
-                        AddProfile(UserImage);
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, 100);
-                    }
+        imageViewcamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    private void AddProfile(byte[] UserImage) {
-                        mydatabase.insertImage(UserImage);
-                    }
+                byte[] UserImage = imageViewToByte(imageViewcamera);
 
+                //open camera
+//                AddProfile(UserImage);
+//
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                startActivityForResult(intent,100);
+
+                Intent getIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                getIntent.setType("image/*");
+
+                Intent pickIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                pickIntent.setType("image/*");
+
+
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                Intent chooserIntent = Intent.createChooser(getIntent, "Select Image from");
+                chooserIntent.putExtra(Intent.EXTRA_INITIAL_INTENTS, new Intent[] {pickIntent,intent});
+
+
+                startActivityForResult(chooserIntent, 100);
+                AddProfile(UserImage);
+
+
+            }
+
+
+
+//        imageViewcamera.setOnClickListener(
+//                new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        byte[] UserImage = imageViewToByte(imageViewcamera);
+//                        // to open camera
+//
+//                        AddProfile(UserImage);
+//                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                        startActivityForResult(intent, 100);
+//                    }
+//
+//                    private void AddProfile(byte[] UserImage) {
+//                        mydatabase.insertImage(UserImage);
+//                    }
+//
+
+            private  void AddProfile(byte[] UserImage){
+                mydatabase.insertImage(UserImage);
+            }
                     private byte[] imageViewToByte(ImageView imageViewcamera)
                     {
                         Bitmap bitmap = ((BitmapDrawable) imageViewcamera.getDrawable()).getBitmap();
@@ -284,6 +323,9 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             //set captured image to imageView
             imageViewcamera.setImageBitmap(captureImage);
+
+            Uri selectedImage = data.getData();
+            imageViewcamera.setImageURI(selectedImage);
         }
     }
 

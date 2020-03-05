@@ -8,12 +8,10 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +19,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,7 +35,8 @@ import java.net.URL;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MenuPage extends Fragment {
+public class MenuPage extends Fragment
+{
 
 
 //    Demo demo;
@@ -58,7 +54,8 @@ public class MenuPage extends Fragment {
 //    private  static final int REQUEST_CODE = 101;
 
 
-    public MenuPage() {
+    public MenuPage()
+    {
         // Required empty public constructor
 
     }
@@ -72,7 +69,8 @@ public class MenuPage extends Fragment {
         View view = inflater.inflate(R.layout.fragment_menu_page,container,false);
 
         ImageButton profile = (ImageButton) view.findViewById(R.id.profile1);
-        profile.setOnClickListener(new View.OnClickListener() {
+        profile.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 Intent in = new Intent(getActivity(),ProfilePage.class);

@@ -12,17 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainMenu extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
+{
 
     public ImageButton profile;
     public ImageButton visa;
@@ -42,15 +41,18 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.main_menu);
 
         visa = (ImageButton) findViewById(R.id.visa);
-        visa.setOnClickListener(new View.OnClickListener() {
+        visa.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent intent = new Intent(MainMenu.this, PaymentPage.class);
                 startActivity(intent);
 
@@ -59,9 +61,11 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         });
 
         hotels = (ImageButton) findViewById(R.id.hotels);
-        hotels.setOnClickListener(new View.OnClickListener() {
+        hotels.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
 
 
                 fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(MainMenu.this);

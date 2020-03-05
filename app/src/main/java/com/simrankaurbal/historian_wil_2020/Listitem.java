@@ -1,51 +1,53 @@
 package com.simrankaurbal.historian_wil_2020;
 
-public class Listitem {
+public class Listitem
+{
 
+    private String name;
+    private String rating;
+    private String Description;
+    private String image_url;
 
-    private String head;
-    private String desp;
-    private String imageurl;
-    private String review;
-
-
-//    private String more;
-//    public Listitem(String review) {
-//        this.review = review;
-//    }
-
-    public Listitem(String head, String desp, String imageurl, String review) {
-        this.head = head;
-        this.desp = desp;
-        this.imageurl = imageurl;
-        this.review = review;
-
-//        this.more = more;
+    public Listitem() {
     }
 
-    public Listitem(String s, String s1) {
+    public Listitem(String name, String rating, String description, String image_url) {
+        this.name = name;
+        this.rating = rating;
+        this.Description = description;
+        this.image_url = image_url;
     }
 
-    public String getHead() {
-        return head;
+    public String getName() {
+        return name;
     }
 
-    public String getDesp() {
-        return desp;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getImageurl() {
-        return imageurl;
+    public String getRating() {
+        return rating;
     }
 
-    public String getReview() {
-        return review;
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
+    public String getDescription() {
+        return Description;
+    }
 
-//    public String getMore() {
-//        return more;
-//    }
+    public void setDescription(String description) {
+        Description = description;
+    }
 
+    public String getImage_url() {
+        return image_url;
+    }
+
+    public void setImage_url(String image_url) {
+        this.image_url = image_url;
+    }
 }
 

@@ -3,6 +3,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -35,15 +36,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Demo extends AppCompatActivity {
-
-//    public double longitude ;
-//    public double latitude ;
-
+    private static final String TAG = "Demo";
     MainMenu mainMenu;
-
-//    public final String strGoogleApi = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+longitude+","+latitude+"&radius=3500&type=museums&keyword=museums&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
-
-
+    Myadapter myadapter;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -51,117 +46,78 @@ public class Demo extends AppCompatActivity {
     // current Location
     Location currentlocation;
     FusedLocationProviderClient fusedLocationProviderClient;
-    private  static final int REQUEST_CODE = 101;
-
-   // Location location;
+    private static final int REQUEST_CODE = 101;
 
     private List<Listitem> listitems;
-
-//    public Button click;
-//    public static TextView data;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycle);
 
-
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
         listitems = new ArrayList<>();
 
-       final Double letValue = getIntent().getDoubleExtra("latitude", 12.12);
-       final  Double longValue = getIntent().getDoubleExtra("longitude", 13.13);
+        final Double letValue = getIntent().getDoubleExtra("latitude", 12.12);
+        final Double longValue = getIntent().getDoubleExtra("longitude", 13.13);
 
-        final String strGoogleApi = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+letValue+","+longValue+"&radius=3500&type=museums&keyword=museums&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
-
-
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Loading Data...");
-            progressDialog.show();
-
-            StringRequest stringRequest = new StringRequest(Request.Method.GET, strGoogleApi, new Response.Listener<String>()
-            {
-
-                @Override
-                public void onResponse(String response) {
-                    progressDialog.dismiss();
-
-                    try {
-                        Log.d("TAG:", "onResponse: " +strGoogleApi);
+        final String strGoogleApi = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + letValue + "," + longValue + "&radius=3500&type=museums&keyword=museums&key=AIzaSyAFRWscDI6hkVARcBPu5bvCgWCyaxHx8fI";
 
 
-                        Log.d("myTag", "This is my json check message");
-                        Toast.makeText(getApplicationContext(),longValue+"  "+letValue,Toast.LENGTH_SHORT).show();
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Loading Data...");
+        progressDialog.show();
 
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONArray jsonArray = jsonObject.getJSONArray("results");
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, strGoogleApi, new Response.Listener<String>() {
 
-                        for (int i=0; i<jsonArray.length(); i++){
-                            JSONObject jsonpint = jsonArray.getJSONObject(i);
-                            Listitem item = new Listitem(jsonpint.getString("name"),
-                                    jsonpint.getString("rating"),
-                                    jsonpint.getString("icon"),jsonpint.getString("scope"));
-                            listitems.add(item);
+            @Override
+            public void onResponse(String response) {
+                progressDialog.dismiss();
 
-                        }
+                try {
+                    Log.d("TAG:", "onResponse: " + strGoogleApi);
 
-                        adapter = new Myadapter(listitems,getApplicationContext());
-                        recyclerView.setAdapter(adapter);
+//                        Log.d("myTag", "This is my json check message");
+                    Toast.makeText(getApplicationContext(), longValue + "  " + letValue, Toast.LENGTH_SHORT).show();
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("results");
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonpint = jsonArray.getJSONObject(i);
+                        Listitem item = new Listitem(jsonpint.getString("name"),
+                                jsonpint.getString("rating"),
+                                jsonpint.getString("vicinity"), jsonpint.getString("icon"));
+                        listitems.add(item);
+
                     }
 
+                    adapter = new Myadapter(getApplicationContext(), listitems);
+                    recyclerView.setAdapter(adapter);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
 
-                }
-            });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
 
+            }
+        });
 
-            RequestQueue requestQueue = Volley.newRequestQueue(this);
-            requestQueue.add(stringRequest);
-        }
-
-
-       // loadRecyclerViewData();
-
-
-
-//        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-//
-//        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
-//        @SuppressLint("MissingPermission")
-//        Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//        longitude = location.getLongitude();
-//        Log.d("TAG:", "onResponse: "+longitude);
-//
-//        latitude = location.getLatitude();
-//        Log.d("TAG:", "onResponse: "+latitude);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
 
     }
-//    Double letValue ;
-//    Double longValue;
+
+}
 
 
-
-
-
-//            Log.d("TAG","NewLocationZ:" +letValuefro);
-//    //longValue = mainMenu.longValueMain;
-//            Log.d("TAG","NewLocationZ:" +longValuefro);
-//
-//
-//    // letValue =  mainMenu.letValueMain;
-//        Log.d("TAG","NewLocation:" +letValue);
-//    //longValue = mainMenu.longValueMain;
-//        Log.d("TAG","NewLocation:" +longValue);
 
 
 

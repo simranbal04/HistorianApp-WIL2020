@@ -5,9 +5,8 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DataBaseHelper extends SQLiteOpenHelper{
-
-
+class DataBaseHelper extends SQLiteOpenHelper
+{
         public static final String DataBaseName = "PaymentDetail.db";
         public static final String TableName = "Payment_Detail";
         public static final String Table_Name = "User_Detail";
@@ -25,12 +24,14 @@ class DataBaseHelper extends SQLiteOpenHelper{
         public static final String column9 = "ExpiryDate";
         public static final String column0 = "UserImage";
 
-        public DataBaseHelper(Context context) {
+        public DataBaseHelper(Context context)
+        {
             super(context, DataBaseName, null, 2);
         }
 
         @Override
-        public void onCreate(SQLiteDatabase sqLiteDatabase) {
+        public void onCreate(SQLiteDatabase sqLiteDatabase)
+        {
             String Payment_Detail = "CREATE TABLE " + TableName + " (CardName TEXT,CardNumber INTEGER,CVV INTEGER,ExpiryDate INTEGER) ";
 
 
@@ -44,12 +45,14 @@ class DataBaseHelper extends SQLiteOpenHelper{
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+        public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1)
+        {
 
         }
 
         //create insert image method
-        public boolean insertImage(byte[] userImage) {
+        public boolean insertImage(byte[] userImage)
+        {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues0 = new ContentValues();
             contentValues0.put(column0, userImage);
@@ -59,7 +62,8 @@ class DataBaseHelper extends SQLiteOpenHelper{
 //
 //Create insert method
 
-        public boolean insertData(String fname, String Lname, String contact, String email, String DOB) {
+        public boolean insertData(String fname, String Lname, String contact, String email, String DOB)
+        {
             SQLiteDatabase db = this.getWritableDatabase();
             ContentValues contentValues1 = new ContentValues();
 
@@ -76,7 +80,8 @@ class DataBaseHelper extends SQLiteOpenHelper{
 
 
         //Create insert methodI
-        public boolean insertDetail(String cardname, String cardnum, String cvv, String expirydate) {
+        public boolean insertDetail(String cardname, String cardnum, String cvv, String expirydate)
+        {
             // get writable Database
             SQLiteDatabase db = this.getWritableDatabase();
 
