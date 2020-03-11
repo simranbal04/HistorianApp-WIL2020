@@ -86,6 +86,7 @@ public class Demo extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");
 
+
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonpint = jsonArray.getJSONObject(i);
                         Listitem item = new Listitem(jsonpint.getString("name"),

@@ -53,8 +53,11 @@ dependencies {
     // circle image view library
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    // calendar view library
+    // datepicker library
 //    implementation 'com.github.psinetron:slycalendarview:0.0.9'
+
+    // calendar view library
+    implementation 'com.github.psinetron:slycalendarview:0.0.9'
 
 
 

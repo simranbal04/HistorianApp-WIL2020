@@ -61,6 +61,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
         });
 
         hotels = (ImageButton) findViewById(R.id.hotels);
+
         hotels.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -140,12 +141,12 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
 
         }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.action_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        getMenuInflater().inflate(R.menu.action_menu,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
 
 }

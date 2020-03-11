@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
+    android:background="#effcef"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".MainActivity">
@@ -39,7 +40,12 @@
             android:text="Find My Location"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/etstyle"
+            android:backgroundTint="#ccedd2"
+            android:textSize="14dp"
+
+            >
 
         </Button>
 
@@ -56,7 +62,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/nav_menu">
+        app:menu="@menu/nav_menu"
+        android:background="#effcef">
 
     </com.google.android.material.navigation.NavigationView>
 

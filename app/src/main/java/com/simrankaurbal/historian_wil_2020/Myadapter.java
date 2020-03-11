@@ -1,25 +1,19 @@
 package com.simrankaurbal.historian_wil_2020;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.text.Layout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
@@ -51,7 +45,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
 
         View view;
         final LayoutInflater inflater = LayoutInflater.from(mcontext);
-        view = inflater.inflate(R.layout.anime_row_item, parent, false);
+        view = inflater.inflate(R.layout.row_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.view_conatiner.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,17 +55,12 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
                 i.putExtra("Museum_Rating",mdata.get(viewHolder.getAdapterPosition()).getRating());
                 i.putExtra("Museum_Type",mdata.get(viewHolder.getAdapterPosition()).getDescription());
                 i.putExtra("Museum_Image",mdata.get(viewHolder.getAdapterPosition()).getImage_url());
+//                i.putExtra("Museum_Data",mdata.get(viewHolder.getAdapterPosition()).getMuseumdata());
 
                 mcontext.startActivity(i);
 
-
-
             }
         });
-
-
-
-
 
 
         return viewHolder;
@@ -106,6 +95,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
         TextView tv_type;
         ImageView img_thumbnail;
         LinearLayout view_conatiner;
+
 
 
         public ViewHolder(@NonNull View itemView)

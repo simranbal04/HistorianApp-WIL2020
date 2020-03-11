@@ -29,15 +29,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class PaymentPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+import ru.slybeaver.slycalendarview.SlyCalendarDialog;
+
+public class PaymentPage extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SlyCalendarDialog.Callback {
 
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
 
     DataBaseHelper mydatabase1;
-
-
-
     public TextView welcometextview;
     public TextView nametextview;
     public EditText editTextName;
@@ -52,7 +51,7 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
     public EditText editTextexpirydate;
     public ImageButton calimageView;
 
-    public Button Savebuttonpayment;
+    public Button Savebutton;
 
     AwesomeValidation awesomeValidation;
 
@@ -75,145 +74,89 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.payment);
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
-        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-        actionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
-        navigationView.setNavigationItemSelectedListener(this);
+//        drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
+//        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
+//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+//        actionBarDrawerToggle.syncState();
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
+//        navigationView.setNavigationItemSelectedListener(this);
 
         welcometextview = (TextView) findViewById(R.id.welcometextview);
-        nametextview = (TextView) findViewById(R.id.nametextview);
         editTextName = (EditText) findViewById(R.id.editTextName);
-
-        cardnumbertextview = (TextView) findViewById(R.id.cardnumbertextview);
         editTextcardnumber = (EditText) findViewById(R.id.editTextcardnumber);
-
-        cvvtextview = (TextView) findViewById(R.id.cvvtextview);
         editTextcvv = (EditText) findViewById(R.id.editTextcvv);
-
-        expirydatetextview = (TextView) findViewById(R.id.expirydatetextview);
         editTextexpirydate = (EditText) findViewById(R.id.editTextexpirydate);
         calimageView = (ImageButton) findViewById(R.id.calimageView);
-
-
-        Savebuttonpayment =  (Button) findViewById(R.id.Savebuttonpayment);
+        Savebutton = (Button) findViewById(R.id.Savebutton);
 
 
         myCalendar = (Calendar) Calendar.getInstance();
         startDate = (Calendar) Calendar.getInstance();
 
-        mydatabase1=new DataBaseHelper(this);
+        mydatabase1 = new DataBaseHelper(this);
 
 
-        calimageView.setOnClickListener(new View.OnClickListener() {
+        editTextexpirydate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener()
-                {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth)
-                    {
-                        myCalendar.set(Calendar.YEAR, year);
-                        myCalendar.set(Calendar.MONTH, month);
-                        myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-
-                        if (start_or_end == 1)
-                        {
-                            startDate.set(Calendar.YEAR, year);
-                            startDate.set(Calendar.MONTH, month);
-                            startDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                            editTextexpirydate.setText(sdf.format(myCalendar.getTime()));
-                        }
-                        else
-                        {
-
-                        }
-
-                    }
-                };
-
-
-
-                editTextexpirydate.setOnFocusChangeListener(new View.OnFocusChangeListener()
-                {
-                    @Override
-                    public void onFocusChange(View v, boolean hasFocus)
-                    {
-                        if (hasFocus)
-                        {
-                            start_or_end = 1;
-                            DatePickerDialog dialog = new DatePickerDialog(PaymentPage.this ,date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-                            dialog.show();
-
-                        } else
-                        {
-
-                        }
-                    }
-                });
-
-
+            public void onClick(View v) {
+                Toast.makeText(PaymentPage.this, "ONCLICK", Toast.LENGTH_SHORT).show();
+                new SlyCalendarDialog()
+                        .setSingle(true)
+                        .setCallback(PaymentPage.this)
+                        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
             }
-        });
 
+
+        });
 
         AddPaymentDetail();
 
         CheckValidData();
 
-
-
     }
 
-    private void CheckValidData()
-    {
+    private void CheckValidData() {
 
-        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextName, "[a-zA-Z\\s]+",R.string.NameOnCard_Error);
-        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextcardnumber, RegexTemplate.NOT_EMPTY,R.string.CardNumber_Error);
-        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextcvv,RegexTemplate.NOT_EMPTY,R.string.CVV_Error);
-        awesomeValidation.addValidation(PaymentPage.this,R.id.editTextexpirydate, RegexTemplate.NOT_EMPTY,R.string.ExpiryDate_Error);
+        awesomeValidation.addValidation(PaymentPage.this, R.id.editTextName, "[a-zA-Z\\s]+", R.string.NameOnCard_Error);
+        awesomeValidation.addValidation(PaymentPage.this, R.id.editTextcardnumber, RegexTemplate.NOT_EMPTY, R.string.CardNumber_Error);
+        awesomeValidation.addValidation(PaymentPage.this, R.id.editTextcvv, RegexTemplate.NOT_EMPTY, R.string.CVV_Error);
+        awesomeValidation.addValidation(PaymentPage.this, R.id.editTextexpirydate, RegexTemplate.NOT_EMPTY, R.string.ExpiryDate_Error);
     }
 
-    public void AddPaymentDetail()
-    {
-        Savebuttonpayment.setOnClickListener(new View.OnClickListener() {
+    public void AddPaymentDetail() {
+        Savebutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (awesomeValidation.validate())
-                {
-                boolean isAdded = mydatabase1.insertDetail(editTextName.getText().toString(),editTextcardnumber.getText().toString(),editTextcvv.getText().toString(),editTextexpirydate.getText().toString());
+                if (awesomeValidation.validate()) {
+                    boolean isAdded = mydatabase1.updatePaymentDetail(editTextName.getText().toString(), editTextcardnumber.getText().toString(), editTextcvv.getText().toString(), editTextexpirydate.getText().toString());
 
-                Log.d("myTag", "This is my payment message");
+                    Log.d("myTag", "This is my payment message");
 
-                if(isAdded = true)
-                    Toast.makeText(PaymentPage.this, "Data Inserted", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(PaymentPage.this, "Data Not Inserted", Toast.LENGTH_SHORT).show();
+                    if (isAdded = true)
+                        Toast.makeText(PaymentPage.this, "Data Updated", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(PaymentPage.this, "Data Not Updated", Toast.LENGTH_SHORT).show();
 
-            }}
+                }
+            }
         });
     }
 
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (actionBarDrawerToggle.onOptionsItemSelected(item))
-        {
+        if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     @Override
-    public boolean onNavigationItemSelected (@NonNull MenuItem menuItem){
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-        if (id == R.id.mainmenu)
-        {
+        if (id == R.id.mainmenu) {
             Intent intent = new Intent(PaymentPage.this, MainMenu.class);
             startActivity(intent);
 
@@ -223,10 +166,24 @@ public class PaymentPage extends AppCompatActivity implements NavigationView.OnN
         return false;
     }
 
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.action_menu, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.action_menu,menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onCancelled() {
+
+    }
+
+    @Override
+    public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
+        if (firstDate != null)
+        {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MM.yyyy");
+            editTextexpirydate.setText(dateFormat.format((firstDate.getTime())));
+
+        }
     }
 }

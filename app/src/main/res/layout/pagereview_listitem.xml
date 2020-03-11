@@ -22,6 +22,15 @@
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
             app:title="Museum Title">
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="210dp"
+                android:layout_marginLeft="265dp"
+                android:text="Book Tickets"
+                android:id="@+id/booktickets_button"/>
+
+
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
@@ -85,6 +94,8 @@
                 </LinearLayout>
 
 
+
+
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -94,13 +105,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="#effcef">
 
     <TextView
         android:text="Museum Description"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/aa_data"/>
+
+
 
 </androidx.core.widget.NestedScrollView>
 

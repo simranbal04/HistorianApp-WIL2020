@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
     public Button find;
     GoogleMap map;
 
+    DataBaseHelper mydatabase;
     // current Location
     Location currentlocation;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -53,12 +54,24 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 //        setContentView(R.layout.activity_main);
         setContentView(R.layout.activity_main);
 
+
+        mydatabase = new DataBaseHelper(this);
+
+
+
         find = (Button)findViewById(R.id.find);
         find.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick(View v)
             {
+                if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+                {
+                    Log.d("myTag", "This is my new message");
+                    ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
+                    return;
+                }
 //                Toast.makeText(getBaseContext(), "Button Clicked!" , Toast.LENGTH_SHORT ).show();
                 fetchlocation();
             }
@@ -81,17 +94,19 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchlocation();
 
+        // database query -- database will not have empty data
+
+        mydatabase.insertData("Simran","Bal","647-675-4396","s@gmail.com","04/03/1996");
+        mydatabase.insertDetail("SIMRANKAURBAL","1234567890123456","123","08/2022");
+
+
+
     }
 
     private void fetchlocation()
     {
         Log.d("myTag", "This is my message");
-        if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            Log.d("myTag", "This is my new message");
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},REQUEST_CODE);
-            return;
-        }
+
 
         Task<Location> task = fusedLocationProviderClient.getLastLocation();
         task.addOnSuccessListener(new OnSuccessListener<Location>()
@@ -104,7 +119,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
                     currentlocation = location;
                     Log.d("myTag", "This is a  message");
 
-                    Toast.makeText(getApplicationContext(),currentlocation.getLatitude()+""+currentlocation.getLongitude(),Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(),currentlocation.getLatitude()+""+currentlocation.getLongitude(),Toast.LENGTH_SHORT).show();
                     SupportMapFragment supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
                     supportMapFragment.getMapAsync(MainActivity.this);
                     Log.d("myTag", "This  message");
@@ -114,9 +129,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         });
 
     }
-
-
-
 
 
 
@@ -152,12 +164,12 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        getMenuInflater().inflate(R.menu.action_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu)
+//    {
+//        getMenuInflater().inflate(R.menu.action_menu,menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public void onMapReady(GoogleMap googleMap)
