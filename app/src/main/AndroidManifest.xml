@@ -43,13 +43,6 @@
             android:label="@string/app_name3">
         </activity>
 
-        <activity android:name=".MuseumsNearby"
-            android:label="Museums Nearby">
-
-        </activity>
-
-        <activity android:name=".PageReview" />
-
         <activity android:name=".Demo"
             android:label="Museums Nearby"></activity>
         <activity android:name=".Listitem"/>

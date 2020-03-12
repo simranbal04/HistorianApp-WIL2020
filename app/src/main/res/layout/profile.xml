@@ -64,7 +64,8 @@
         android:background="@drawable/etstyle"
         android:ems="10"
         android:hint="First Name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:text="Simran" />
 
     <EditText
         android:id="@+id/editTextlastname"
@@ -77,7 +78,8 @@
         android:background="@drawable/etstyle"
         android:ems="10"
         android:hint="Last Name"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:text="Bal" />
 
     <EditText
         android:id="@+id/editTextcontact"
@@ -90,7 +92,8 @@
         android:background="@drawable/etstyle"
         android:ems="10"
         android:hint="Contact"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:text="6476754396" />
 
 
     <EditText
@@ -104,7 +107,8 @@
         android:background="@drawable/etstyle"
         android:ems="10"
         android:hint="Email ID"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:text="s@gmail.com" />
 
 
     <EditText
@@ -121,7 +125,8 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:hint="Date of Birth"
-        android:inputType="date" />
+        android:inputType="date"
+        android:text="04-03-1996" />
 
 
     <Button

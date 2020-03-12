@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -31,6 +32,8 @@ public ImageView aa_thumbnail;
 public AppBarLayout appbarlayout;
 public CollapsingToolbarLayout collapsinglayout;
 public Button booktickets_button;
+public TextView aa_hello;
+public RatingBar rating1;
 
 
 
@@ -57,17 +60,21 @@ public Button booktickets_button;
         aa_thumbnail = (ImageView) findViewById(R.id.aa_thumbnail);
         aa_data = (TextView) findViewById(R.id.aa_data);
         booktickets_button = (Button) findViewById(R.id.booktickets_button);
+//        aa_hello = (TextView) findViewById(R.id.aa_hello);
 
         appbarlayout = (AppBarLayout) findViewById(R.id.appbarlayout);
         collapsinglayout = (CollapsingToolbarLayout) findViewById(R.id.collapsinglayout);
         collapsinglayout.setTitleEnabled(true );
+
+//        rating1 = (RatingBar) findViewById(R.id.rating1);
 
         // setting Values to each view
 
         aa_title.setText(name);
         aa_rating.setText(description);
         aa_type.setText(type);
-//        collapsinglayout.setText(name);
+        collapsinglayout.setTitle(name);
+//        rating1.setNumStars(Integer.parseInt(description));
 
 //        RequestOptions requestOptions = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
         // set Image using glide
