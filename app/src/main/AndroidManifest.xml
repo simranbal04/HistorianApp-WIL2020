@@ -49,6 +49,9 @@
         <activity android:name=".Myadapter"/>
         <activity android:name=".MainActivity"/>
         <activity android:name=".Pagereviewlistitem"/>
+        <activity android:name=".Reviews"/>
+        <activity android:name=".BookTickets"/>
+
 
 
 

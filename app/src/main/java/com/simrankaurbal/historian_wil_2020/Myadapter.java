@@ -50,7 +50,7 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
         viewHolder.view_conatiner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(mcontext,Pagereviewlistitem.class);
+                Intent i = new Intent(mcontext, Pagereviewlistitem.class);
                 i.putExtra("Museum_Name",mdata.get(viewHolder.getAdapterPosition()).getName());
                 i.putExtra("Museum_Rating",mdata.get(viewHolder.getAdapterPosition()).getRating());
                 i.putExtra("Museum_Type",mdata.get(viewHolder.getAdapterPosition()).getDescription());
@@ -58,6 +58,15 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
 //                i.putExtra("Museum_Data",mdata.get(viewHolder.getAdapterPosition()).getMuseumdata());
 
                 mcontext.startActivity(i);
+
+
+            }
+            public void onClick1(View view1) {
+                Intent intent = new Intent(mcontext,BookTickets.class);
+                intent.putExtra("Museum_Name",mdata.get(viewHolder.getAdapterPosition()).getName());
+                intent.putExtra("Museum_Image",mdata.get(viewHolder.getAdapterPosition()).getImage_url());
+
+                mcontext.startActivity(intent);
 
             }
         });

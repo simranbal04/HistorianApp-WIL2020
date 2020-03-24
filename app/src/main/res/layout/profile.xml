@@ -137,7 +137,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/etstyle"
         android:backgroundTint="#ccedd2"
-        android:onClick="adddata"
+
         android:text="SAVE"
         android:textColor="@color/cardview_dark_background"
         android:textStyle="bold" />

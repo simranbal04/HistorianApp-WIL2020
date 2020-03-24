@@ -15,7 +15,7 @@
         android:orientation="horizontal"
         android:layout_marginTop="50dp"
         android:background="#effcef"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="100dp"
         android:gravity="top">
 
 
@@ -25,15 +25,13 @@
             android:layout_height="190dp"
             android:layout_margin="10dp"
             android:clickable="true"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:background="#655c56"
-
                 android:orientation="vertical">
 
 
@@ -50,23 +48,25 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Profile"
-                    android:textColor="#616161"
+                    android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
         <androidx.cardview.widget.CardView
             android:layout_width="160dp"
             android:layout_height="190dp"
             android:background="@drawable/etstyle"
-            android:layout_margin="10dp">
+            android:layout_margin="10dp"
+            android:layout_marginLeft="-100dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:background="#655c56"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="vertical">
 
 
                 <ImageButton
@@ -83,13 +83,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Payment"
-                    android:textColor="#616161"
+                    android:textColor="#FFFFFF"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -100,7 +101,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="160dp"
             android:layout_height="190dp"
-            android:layout_margin="74dp">
+            android:layout_margin="74dp"
+            android:layout_marginTop="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -124,7 +126,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:text="Museum"
-                    android:textColor="#616161"
+                    android:textColor="#ffffff"
                     android:textSize="24sp"
                     android:textStyle="bold" />
 

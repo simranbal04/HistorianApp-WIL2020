@@ -81,7 +81,7 @@ public class Demo extends AppCompatActivity {
                     Log.d("TAG:", "onResponse: " + strGoogleApi);
 
 //                        Log.d("myTag", "This is my json check message");
-                    Toast.makeText(getApplicationContext(), longValue + "  " + letValue, Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getApplicationContext(), longValue + "  " + letValue, Toast.LENGTH_SHORT).show();
 
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("results");

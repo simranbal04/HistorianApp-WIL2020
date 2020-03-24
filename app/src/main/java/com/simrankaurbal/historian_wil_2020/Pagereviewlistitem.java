@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,9 +21,12 @@ import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class Pagereviewlistitem extends AppCompatActivity {
+import ru.slybeaver.slycalendarview.SlyCalendarDialog;
+
+public class Pagereviewlistitem extends AppCompatActivity implements SlyCalendarDialog.Callback {
 
 public TextView aa_title;
 public TextView aa_rating;
@@ -47,10 +51,10 @@ public RatingBar rating1;
         getSupportActionBar().hide();
 
         //Recieve Data
-        String name = getIntent().getExtras().getString("Museum_Name");
+        final String name = getIntent().getExtras().getString("Museum_Name");
         String description = getIntent().getExtras().getString("Museum_Rating");
         String type = getIntent().getExtras().getString("Museum_Type");
-        String img = getIntent().getExtras().getString("Museum_Image");
+        final String img = getIntent().getExtras().getString("Museum_Image");
         String museumdata = getIntent().getExtras().getString("Museum_Data");
 
 
@@ -86,12 +90,46 @@ public RatingBar rating1;
         booktickets_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(Pagereviewlistitem.this,MainActivity.class);
+                Intent i = new Intent(Pagereviewlistitem.this,BookTickets.class);
+                i.putExtra("Museum_Name",name);
+                i.putExtra("Museum_Image",img);
+//                intent.putExtra("latitude", letValueMain);
+
                 startActivity(i);
+
+//                Toast.makeText(Pagereviewlistitem.this, "ONCLICK", Toast.LENGTH_SHORT).show();
+//                new SlyCalendarDialog()
+//                        .setSingle(false)
+//                        .setCallback(Pagereviewlistitem.this)
+//                        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
 
             }
         });
 
+
+
+//        dobedittext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                Toast.makeText(ProfilePage.this, "ONCLICK", Toast.LENGTH_SHORT).show();
+//                new SlyCalendarDialog()
+//                        .setSingle(false)
+//                        .setCallback(ProfilePage.this)
+//                        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
+//
+//            }
+//        });
+
+    }
+
+    @Override
+    public void onCancelled() {
+
+    }
+
+    @Override
+    public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
 
     }
 }

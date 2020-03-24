@@ -56,7 +56,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 Intent intent = new Intent(MainMenu.this, PaymentPage.class);
                 startActivity(intent);
 
-                Toast.makeText(getBaseContext(),"Visa Button Clicked", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(),"Visa Button Clicked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -84,7 +84,7 @@ public class MainMenu extends AppCompatActivity implements NavigationView.OnNavi
                 intent.putExtra("latitude", letValueMain);
                 intent.putExtra("longitude", longValueMain);
                 startActivity(intent);
-                Toast.makeText(getBaseContext(),"Hotels Button Clicked",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getBaseContext(),"Hotels Button Clicked",Toast.LENGTH_SHORT).show();
             }
         });
 

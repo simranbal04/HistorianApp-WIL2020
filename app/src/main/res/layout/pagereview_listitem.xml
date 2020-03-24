@@ -20,7 +20,8 @@
             app:expandedTitleMarginEnd="80dp"
             app:expandedTitleMarginStart="48dp"
             app:layout_scrollFlags="exitUntilCollapsed|scroll"
-            app:title="Museum Title">
+            app:title="Museum Title"
+            android:textSize="14dp">
 
             <Button
                 android:layout_width="wrap_content"
@@ -75,7 +76,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/rating_shape"
                         android:drawableLeft="@drawable/ic_star_black_24dp"
-                        android:text="0.0"
+                        android:text=" 0.0 "
                         android:textColor="#fff"
                         android:textSize="15sp"
                         android:textStyle="bold" />
