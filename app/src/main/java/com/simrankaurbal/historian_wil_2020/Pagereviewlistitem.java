@@ -97,12 +97,6 @@ public RatingBar rating1;
 
                 startActivity(i);
 
-//                Toast.makeText(Pagereviewlistitem.this, "ONCLICK", Toast.LENGTH_SHORT).show();
-//                new SlyCalendarDialog()
-//                        .setSingle(false)
-//                        .setCallback(Pagereviewlistitem.this)
-//                        .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
-
             }
         });
 

@@ -96,8 +96,8 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
         // database query -- database will not have empty data
 
-//        mydatabase.insertData("Simran","Bal","647-675-4396","s@gmail.com","04/03/1996");
-//        mydatabase.insertDetail("SIMRANKAURBAL","1234567890123456","123","08/2022");
+        mydatabase.insertData("Simran","Bal","647-675-4396","s@gmail.com","04/03/1996");
+        mydatabase.insertDetail("SIMRANKAURBAL","1234567890123456","123","08/2022");
 
 
 

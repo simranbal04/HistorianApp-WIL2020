@@ -72,7 +72,41 @@
 
     </TextView>
 
+    <TextView
+        android:id="@+id/selectdate"
+        android:layout_width="146dp"
+        android:layout_height="47dp"
+        android:text="Click to select Date"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="-50dp"
+        android:textStyle="bold"
+        android:textSize="14dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="Select Time"
+        android:padding="30dp"
+        android:id="@+id/time"
+        android:textStyle="bold">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/selecttime"
+        android:layout_width="146dp"
+        android:layout_height="47dp"
+        android:text="Click to select Time"
+        android:layout_marginLeft="250dp"
+        android:layout_marginTop="-50dp"
+        android:textStyle="bold"
+        android:textSize="14dp"/>
+
+
+
     <Button
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm Tickets"
@@ -81,12 +115,6 @@
         android:padding="20dp"
         android:layout_marginLeft="100dp"
         android:layout_marginTop="30dp"/>
-
-
-
-
-
-
 
 
 
