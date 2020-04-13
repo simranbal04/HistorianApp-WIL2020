@@ -2,85 +2,67 @@ package com.simrankaurbal.historian_wil_2020;
 
 //import android.app.DatePickerDialog;
 //import android.app.TimePickerDialog;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
-import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Locale;
-import ru.slybeaver.slycalendarview.SlyCalendarDialog;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-public class BookTickets extends AppCompatActivity implements SlyCalendarDialog.Callback, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-    TextView textView;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import ru.slybeaver.slycalendarview.SlyCalendarDialog;
+
+public class BookTickets extends AppCompatActivity implements SlyCalendarDialog.Callback, TimePickerDialog.OnTimeSetListener, DatePickerDialog.OnDateSetListener {
+    DataBaseHelper mydatabase;
+    public LinearLayout linearLayout;
+    public ImageView imageView;
+    public TextView textView;
+    public TextView textView1;
+    public TextView textView2;
     TextView textView3;
+    TextView text;
     TextView museumname;
     ImageView image;
-    TextView date;
-    TextView text;
-    Spinner spin;
-    Button confirm;
-    TextView selectdate;
-    TextView selecttime;
-    TextView time;
-
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.CANADA);
-
-    Calendar myCalendar;
-    Calendar startDate;
-
+    Button Confirmbtn;
+    public Spinner spinner;
+    //defines variables for time picker
     TimePickerDialog timePickerDialog ;
     int Year, Month, Day, Hour, Minute;
-
-    DataBaseHelper mydatabase;
+    Calendar calendar ;
 
     public void setIs24HourView(Boolean is24HourView) {
 
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.book_tickets);
+        mydatabase = new DataBaseHelper(this);
+        Calendar now = Calendar.getInstance();
+        textView = (TextView)findViewById(R.id.textView);
+        textView1 = (TextView)findViewById(R.id.time);
 
-        textView = (TextView) findViewById(R.id.textView);
+        textView2 = (TextView) findViewById(R.id.date);
         textView3 = (TextView) findViewById(R.id.textView3);
         museumname = (TextView) findViewById(R.id.musuemname);
         image = (ImageView) findViewById(R.id.image);
-        date = (TextView) findViewById(R.id.date);
+        Confirmbtn = (Button) findViewById(R.id.Confirmbtn);
+       // Confirmbtn = (Button)findViewById(R.id.Confirmbtn);
+
         text = (TextView) findViewById(R.id.text);
-        spin = (Spinner) findViewById(R.id.spin);
-        selectdate = (TextView) findViewById(R.id.selectdate);
-        selecttime = (TextView) findViewById(R.id.selecttime);
-        time = (TextView) findViewById(R.id.time);
-
-        myCalendar = (Calendar) Calendar.getInstance();
-        startDate = (Calendar) Calendar.getInstance();
-
-        mydatabase = new DataBaseHelper(this);
-
-
-        confirm = (Button) findViewById(R.id.confirm);
-        confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mydatabase.insertTicketDetail(museumname.getText().toString(),spin.getTextAlignment(),selecttime.getText().toString(),selectdate.getText().toString());
-                Toast.makeText(BookTickets.this,"Your Ticket Confirmed",Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        spinner = (Spinner) findViewById(R.id.spin);
         // Recieve Name
         String name = getIntent().getExtras().getString("Museum_Name");
         final String img = getIntent().getExtras().getString("Museum_Image");
@@ -88,18 +70,20 @@ public class BookTickets extends AppCompatActivity implements SlyCalendarDialog.
         // setting Values to each view
         museumname.setText(name);
         Glide.with(this).load(img).into(image);
-
-        selectdate.setOnClickListener(new View.OnClickListener() {
+        //shows calender to pick any date
+        textView2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Toast.makeText(BookTickets.this, "Selected", Toast.LENGTH_SHORT).show();
                 new SlyCalendarDialog()
                         .setSingle(true)
-                        .setCallback( BookTickets.this)
+                        .setCallback(BookTickets.this)
                         .show(getSupportFragmentManager(), "TAG_SLYCALENDAR");
             }
         });
-        selecttime.setOnClickListener(new View.OnClickListener() {
+        // to call onClicklistener for timepicker
+        textView1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 timePickerDialog = TimePickerDialog.newInstance(BookTickets.this,Hour, Minute,false);
@@ -108,50 +92,45 @@ public class BookTickets extends AppCompatActivity implements SlyCalendarDialog.
                 timePickerDialog.show(getSupportFragmentManager(),"timePickerDialog");
             }
         });
+        //method to confrim ticket details and store in database
+        Confirmbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mydatabase.insertTicketDetail(museumname.getText().toString(),spinner.getTextAlignment(),textView1.getText().toString(),textView2.getText().toString());
+                Toast.makeText(BookTickets.this,"Your Ticket Confirmed",Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
 
-
-
-
+    @Override
     public void onCancelled() {
 
     }
 
+
+
+    @Override
     public void onDataSelected(Calendar firstDate, Calendar secondDate, int hours, int minutes) {
         if (firstDate != null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-            selectdate.setText(dateFormat.format((firstDate.getTime())));
+            //  SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.US);
+            textView2.setText(dateFormat.format((firstDate.getTime())));
+            //textView1.setText(dateFormat.format((sdf.getTimeZone())));
         }
     }
 
     @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-
-    }
-
-
     public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-        String time1 = hourOfDay+"h"+minute+"m"+second;
-        Toast.makeText(BookTickets.this, time1, Toast.LENGTH_LONG).show();
+        String time = hourOfDay+"h"+minute+"m"+second;
+        Toast.makeText(BookTickets.this, time, Toast.LENGTH_LONG).show();
 
-        selecttime.setText(time1);
+        textView1.setText(time);
     }
-
-//    @Override
-//    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-//
-//    }
-
-//    @Override
-//    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//
-//    }
 
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
     }
 }
-

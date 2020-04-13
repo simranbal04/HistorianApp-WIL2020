@@ -1,5 +1,5 @@
 package com.simrankaurbal.historian_wil_2020;
-import android.content.ContentValues;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -49,15 +49,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String User_Detail = "CREATE TABLE " + Table_Name + "(ID INTEGER PRIMARY KEY AUTOINCREMENT,UserName TEXT,UserLastName TEXT,UserContact INTEGER,UserEmailID TEXT UNIQUE,UserDOB INTEGER)";
 
         String User_image = "CREATE TABLE " + Table_Name1 + " (ID INTEGER PRIMARY KEY AUTOINCREMENT,userImage image) ";
-        sqLiteDatabase.execSQL(Payment_Detail);
-        sqLiteDatabase.execSQL(User_Detail);
-        sqLiteDatabase.execSQL(User_image);
 
         String Ticket_Detail = "CREATE TABLE " + Table_Ticket + "(ID INTEGER PRIMARY KEY AUTOINCREMENT, museumName TEXT, noOfTickets INTEGER, date INTEGER, time INTEGER)";
         sqLiteDatabase.execSQL(Payment_Detail);
         sqLiteDatabase.execSQL(User_Detail);
         sqLiteDatabase.execSQL(User_image);
         sqLiteDatabase.execSQL(Ticket_Detail);
+
 
 
     }
@@ -86,8 +84,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
         return bt;
     }
-    //Create insert method for user's profile
 
+    //Create insert method for user's profile
     public boolean insertData(String fname, String Lname, String contact, String  email, String DOB){
 
         ContentValues contentValues1 = new ContentValues();
@@ -119,7 +117,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return  false;
     }
 
-
     // create method to insert ticket details in database
     public  boolean insertTicketDetail(String museumname, int noOftickets, String Date, String Time){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -133,7 +130,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.insert(Table_Ticket,null,contentValues4);
         return false;
     }
-
 
     //this an update method for updating details for user profile
 
@@ -167,9 +163,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return true;
     }
 
+
+
     public void DisplayWElcomeName(TextView textView)
     {
-// cursor class is used to filter data
+
         Cursor cr = this.getReadableDatabase().rawQuery("select * from "+ Table_Name+" where ID = 1",null);
         textView.setText("");
         while(cr.moveToNext()){
@@ -183,6 +181,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor =  db.rawQuery("select * from  "+Table_Name+" where ID = 1",null);
+        // Cursor cursor1 = db.rawQuery("select * from "+ TableName+" where ID = 1",null);
 
         return cursor;
 
@@ -190,6 +189,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public Cursor getData(){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery("select * from "+TableName+" where ID = 1",null);
+        // Cursor cursor1 = db.rawQuery("select * from "+ TableName+" where ID = 1",null);
+
         return cursor;
     }
 

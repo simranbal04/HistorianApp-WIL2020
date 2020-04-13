@@ -10,23 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-
 import java.util.List;
 
 public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
 {
     private static final String TAG = "Myadapter";
-
-   private List<Listitem> mdata;
-   private Context mcontext;
-   LayoutInflater inflater;
+    private List<Listitem> mdata;
+    private Context mcontext;
+    LayoutInflater inflater;
     RequestOptions options;
 
 
-    public Myadapter(Context mcontext, List<Listitem> mdata) {
+    public Myadapter(Context mcontext, List<Listitem> mdata)
+    {
         this.mcontext = mcontext;
         this.mdata = mdata;
 
@@ -34,22 +32,22 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
 
         options = new RequestOptions().centerCrop().placeholder(R.drawable.loading_shape).error(R.drawable.loading_shape);
 
-
     }
-
-
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
 
         View view;
         final LayoutInflater inflater = LayoutInflater.from(mcontext);
         view = inflater.inflate(R.layout.row_item, parent, false);
         final ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.view_conatiner.setOnClickListener(new View.OnClickListener() {
+        viewHolder.view_conatiner.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 Intent i = new Intent(mcontext, Pagereviewlistitem.class);
                 i.putExtra("Museum_Name",mdata.get(viewHolder.getAdapterPosition()).getName());
                 i.putExtra("Museum_Rating",mdata.get(viewHolder.getAdapterPosition()).getRating());
@@ -61,7 +59,8 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
 
 
             }
-            public void onClick1(View view1) {
+            public void onClick1(View view1)
+            {
                 Intent intent = new Intent(mcontext,BookTickets.class);
                 intent.putExtra("Museum_Name",mdata.get(viewHolder.getAdapterPosition()).getName());
                 intent.putExtra("Museum_Image",mdata.get(viewHolder.getAdapterPosition()).getImage_url());
@@ -82,7 +81,6 @@ public class Myadapter extends RecyclerView.Adapter<Myadapter.ViewHolder>
         holder.tv_name.setText(mdata.get(position).getName());
         holder.tv_rating.setText(mdata.get(position).getRating());
         holder.tv_type.setText(mdata.get(position).getDescription());
-
         // load image from internet and  it into Imageview using glide
         Glide.with(mcontext).load(mdata.get(position).getImage_url()).apply(options).into(holder.img_thumbnail);
 

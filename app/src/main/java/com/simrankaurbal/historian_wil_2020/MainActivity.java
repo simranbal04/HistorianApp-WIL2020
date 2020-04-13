@@ -130,8 +130,6 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
 
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -150,7 +148,7 @@ public class MainActivity extends AppCompatActivity  implements NavigationView.O
         {
 
 //            getSupportFragmentManager().beginTransaction().replace(R.id.mainLayout,new MenuPage()).addToBackStack(null).commit();
-            Intent intent = new Intent(MainActivity.this, MainMenu.class);
+            Intent intent = new Intent(MainActivity.this, Screen.class);
             startActivity(intent);
 //
 //            Toast.makeText(this, "This is Menu Page", Toast.LENGTH_SHORT).show();

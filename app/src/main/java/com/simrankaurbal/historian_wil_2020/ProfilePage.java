@@ -4,13 +4,17 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.Menu;
@@ -95,6 +99,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     {
 
         awesomeValidation = new AwesomeValidation(ValidationStyle.BASIC);
+//        final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
@@ -123,22 +128,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 //        imageViewcalendar = (ImageButton) findViewById(R.id.imageViewcalendar);
         Savebutton = (Button) findViewById(R.id.Savebutton);
 
-
-
         myCalendar = (Calendar) Calendar.getInstance();
         startDate = (Calendar) Calendar.getInstance();
-
-
-
-//        drawerLayout = (DrawerLayout) findViewById(R.id.mainLayout);
-//        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
-//        drawerLayout.addDrawerListener(actionBarDrawerToggle);
-//        actionBarDrawerToggle.syncState();
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        NavigationView navigationView = (NavigationView) findViewById(R.id.navView);
-//        navigationView.setNavigationItemSelectedListener(this);
-
-
 
         dobedittext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -154,38 +145,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 });
 
 
-//                dobedittext.setOnFocusChangeListener(new View.OnFocusChangeListener()
-//                {
-//                    @Override
-//                    public void onFocusChange(View v, boolean hasFocus)
-//                    {
-//                        if (hasFocus)
-//                        {
-//                            start_or_end = 1;
-//                            DatePickerDialog dialog = new DatePickerDialog(ProfilePage.this ,date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH));
-//                            dialog.show();
-//
-//                        } else
-//                        {
-//
-//                        }
-//                    }
-//                });
-
-
-
-
-
-//        //request for camera permission
-//        if (ContextCompat.checkSelfPermission(ProfilePage.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-//        {
-//            ActivityCompat.requestPermissions(ProfilePage.this,new String[] {
-//                    Manifest.permission.CAMERA
-//            },
-//                    100);
-//        }
-
-
         imageViewcamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -198,6 +157,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
 
                 byte[] UserImage = imageViewToByte(imageViewcamera);
+
+
 
                 //open camera
 //                AddProfile(UserImage);
@@ -225,6 +186,8 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             private  void AddProfile(byte[] UserImage){
                 mydatabase.insertImage(UserImage);
             }
+
+
                     private byte[] imageViewToByte(ImageView imageViewcamera)
                     {
                         Bitmap bitmap = ((BitmapDrawable) imageViewcamera.getDrawable()).getBitmap();
@@ -251,6 +214,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
 
     }
 
+    // method for save button
 
     public  void AddDetails(){
         Savebutton.setOnClickListener(
@@ -261,6 +225,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                         if (awesomeValidation.validate()) {
                             mydatabase.updateData(editTextfirstname.getText().toString(), editTextlastname.getText().toString(), editTextcontact.getText().toString(), editTextemailid.getText().toString(), dobedittext.getText().toString());
                             mydatabase.DisplayWElcomeName(welcometextview);
+
                             Toast.makeText(ProfilePage.this, "Data Updated", Toast.LENGTH_SHORT).show();
                         }
                         else{
@@ -273,8 +238,15 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
                 }
         );
     }
-
-
+////2. adding intent for pasing data back to first activity -- for point 3 check screen class
+//    public void onBackPressed() {
+//       Intent intent1 = new Intent();
+//        intent1.putExtra("firstname",editTextfirstname.getText().toString());
+//        intent1.putExtra("lastname",editTextlastname.getText().toString());
+//
+//        setResult(RESULT_OK,intent1);
+//        finish();
+//    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -289,6 +261,32 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
             imageViewcamera.setImageURI(selectedImage);
         }
     }
+
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        String stateSaved = savedInstanceState.getString("Saved_state");
+//        if(stateSaved==null){
+//            Toast.makeText(ProfilePage.this,"OnRestoreInstanceState:\n"+"NO state saved",Toast.LENGTH_LONG).show();
+//        }
+//        else {
+//            Toast.makeText(ProfilePage.this,"OnRestoreInstanceState:\n"+"saved state="+stateSaved,Toast.LENGTH_LONG).show();
+//            editTextfirstname.setText(stateSaved);
+//            editTextlastname.setText(stateSaved);
+//            editTextcontact.setText(stateSaved);
+//            editTextemailid.setText(stateSaved);
+//            dobedittext.setText(stateSaved);
+//
+//        }
+//    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState){
+//        super.onSaveInstanceState(outState);
+//        String stateToSave = editTextfirstname.getText().toString();
+//        outState.putString("saved_state", stateToSave);
+//        Toast.makeText(ProfilePage.this,"onSaveInstanceState:\n"+"saved_state = "+stateToSave,Toast.LENGTH_LONG).show();
+//
+//    }
 
     // to show data in the app
 
@@ -324,8 +322,6 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
     }
 
 
-
-
     public void ShowData(String title, String message)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -342,7 +338,7 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         int id = menuItem.getItemId();
         if (id == R.id.mainmenu)
         {
-                Intent intent = new Intent(ProfilePage.this, MainMenu.class);
+                Intent intent = new Intent(ProfilePage.this, Screen.class);
                 startActivity(intent);
 
 //            Toast.makeText(this, "This is Main Menu Page", Toast.LENGTH_SHORT).show();
@@ -372,6 +368,5 @@ public class ProfilePage extends AppCompatActivity implements NavigationView.OnN
         }
         //  Toast.makeText(Profile.this, firstDate.toString(), Toast.LENGTH_SHORT).show();
     }
-
 
 }

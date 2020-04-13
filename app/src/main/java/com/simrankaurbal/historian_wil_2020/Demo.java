@@ -37,7 +37,7 @@ import java.util.List;
 
 public class Demo extends AppCompatActivity {
     private static final String TAG = "Demo";
-    MainMenu mainMenu;
+    //MainMenu mainMenu;
     Myadapter myadapter;
 
     private RecyclerView recyclerView;
