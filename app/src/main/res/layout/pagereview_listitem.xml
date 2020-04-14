@@ -15,7 +15,7 @@
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsinglayout"
             android:layout_width="match_parent"
-            android:layout_height="264dp"
+            android:layout_height="284dp"
             app:contentScrim="@color/colorPrimary"
             app:expandedTitleMarginEnd="80dp"
             app:expandedTitleMarginStart="48dp"
@@ -26,7 +26,7 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="210dp"
+                android:layout_marginTop="250dp"
                 android:layout_marginLeft="265dp"
                 android:text="Book Tickets"
                 android:id="@+id/booktickets_button"/>
@@ -49,7 +49,7 @@
                 <ImageView
                     android:id="@+id/aa_thumbnail"
                     android:layout_width="100dp"
-                    android:layout_height="150dp"
+                    android:layout_height="100dp"
                     android:src="@drawable/loading_shape" />
 
 
@@ -95,8 +95,6 @@
                 </LinearLayout>
 
 
-
-
             </LinearLayout>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -140,15 +138,21 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hemant Patel "
+                android:text="Hemant Patel"
                 android:textSize="18dp"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="This museum is definitely one of the must-see places in Toronto."
+                android:textSize="16dp"
                 android:textStyle="bold"/>
 
             <RatingBar
                 android:id="@+id/rating1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="10dp"
                 android:rating="4" />
 
         </LinearLayout>
@@ -173,10 +177,18 @@
                     android:textSize="18dp"
                     android:textStyle="bold"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="This place blew me away with the quantity and quality of cool stuff to look at."
+
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
                 <RatingBar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:rating="3" />
             </LinearLayout>
 
@@ -200,10 +212,18 @@
                     android:textSize="18dp"
                     android:textStyle="bold"/>
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="A building full of history and treasures. A great place to spend the day."
+                    android:textSize="16dp"
+                    android:textStyle="bold"/>
+
+
                 <RatingBar
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="10dp"
                     android:rating="4" />
 
             </LinearLayout>
